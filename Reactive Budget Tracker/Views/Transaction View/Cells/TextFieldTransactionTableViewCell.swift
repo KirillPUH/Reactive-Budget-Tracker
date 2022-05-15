@@ -6,22 +6,50 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
+
+enum TextFieldTransactionTableViewCellType {
+    case title
+    case amount
+}
 
 class TextFieldTransactionTableViewCell: UITableViewCell {
     static let identifier = "TextFieldTransactionTableViewCellIdentifier"
     
-    @IBOutlet weak var label: UILabel!
-    @IBOutlet weak var textField: UITextField!
+    private var disposeBag: DisposeBag!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var textField: UITextField!
+
+    func configure(for cellType: TextFieldTransactionTableViewCellType, title: String, transaction: Transaction) {
+        disposeBag = DisposeBag()
+        
+        
+        titleLabel.text = title
+        
+        switch cellType {
+        case .title:
+            textField.text = transaction.title
+            textField.rx.text
+                .orEmpty
+                .debounce(.milliseconds(50), scheduler: MainScheduler.instance)
+                .subscribe(onNext: {
+                    transaction.title = $0
+                })
+                .disposed(by: disposeBag)
+        case .amount:
+            textField.text = transaction.amount?.stringValue
+            textField.rx.text
+                .orEmpty
+                .debounce(.milliseconds(50), scheduler: MainScheduler.instance)
+                .subscribe(onNext: {
+                    if let number = Double($0) {
+                        transaction.amount = NSNumber(value: number)
+                    }
+                })
+                .disposed(by: disposeBag)
+        }
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
+    
 }

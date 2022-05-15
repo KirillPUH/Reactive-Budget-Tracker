@@ -28,7 +28,6 @@ class TransactionService: TransactionServiceProtocol {
                 guard let self = self else { return }
                 
                 guard let uuidString = UserDefaults.standard.string(forKey: "currentAccountUUID") else {
-                    print("🔴 Found nil while unwraping \"currentAccountUUID\" from UserDefaults")
                     subject.onNext(nil)
                     return
                 }
@@ -43,7 +42,6 @@ class TransactionService: TransactionServiceProtocol {
                 
                 // Get current account
                 guard let account = try! self.managedObjectContext.context.fetch(fetchRequest).first else {
-                    print("🔴 Account with uuid \(uuidString) wasn't found")
                     subject.onNext(nil)
                     return
                 }
@@ -113,6 +111,7 @@ class TransactionService: TransactionServiceProtocol {
         return Single<Transaction>.create { [unowned self] single in
             let transaction = Transaction(context: self.managedObjectContext.context)
             transaction.account = account
+            transaction.currency = account.currency
             
             single(.success(transaction))
             

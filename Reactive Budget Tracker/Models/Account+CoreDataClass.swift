@@ -23,10 +23,6 @@ extension Account: IdentifiableType {
     public typealias Identity = UUID
     
     public var identity: UUID {
-        if id == nil {
-            id = UUID()
-        }
-        
-        return id!
+        id!
     }
 }

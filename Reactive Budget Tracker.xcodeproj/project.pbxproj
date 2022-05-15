@@ -19,6 +19,8 @@
 		D641DE1E280B0EEA00E2FCD8 /* ManagedObjectContextService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D641DE1D280B0EEA00E2FCD8 /* ManagedObjectContextService.swift */; };
 		D66125B0282F9BDF0022C8F2 /* SceneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66125AF282F9BDF0022C8F2 /* SceneError.swift */; };
 		D66125B2282F9C1E0022C8F2 /* SceneCoordinator Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66125B1282F9C1E0022C8F2 /* SceneCoordinator Error.swift */; };
+		D67C4925282FCEEC000B0514 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C4924282FCEEC000B0514 /* Currency.swift */; };
+		D67C49272830115C000B0514 /* CurrencyTransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C49262830115C000B0514 /* CurrencyTransactionTableViewCell.swift */; };
 		D67F005928074EC900E7A7E7 /* BindableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F005828074EC900E7A7E7 /* BindableProtocol.swift */; };
 		D67F005F2807658C00E7A7E7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F005E2807658C00E7A7E7 /* SceneDelegate.swift */; };
 		D68789E528069E9200EB95A4 /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68789E428069E9200EB95A4 /* Scene.swift */; };
@@ -30,14 +32,18 @@
 		D68789F228069FD200EB95A4 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68789F128069FD200EB95A4 /* AccountViewModel.swift */; };
 		D6A30D3527FB2799004FF728 /* TextFieldTransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30D3427FB2799004FF728 /* TextFieldTransactionTableViewCell.swift */; };
 		D6A30D3727FB27A3004FF728 /* DateTransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30D3627FB27A3004FF728 /* DateTransactionTableViewCell.swift */; };
+		D6AEC17828301E3000E21694 /* TransactionTableViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AEC17728301E3000E21694 /* TransactionTableViewCellType.swift */; };
+		D6AEC17B28301FDC00E21694 /* CurrenciesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AEC17A28301FDC00E21694 /* CurrenciesViewController.swift */; };
+		D6AEC17D28301FFC00E21694 /* CurrenciesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AEC17C28301FFC00E21694 /* CurrenciesViewModel.swift */; };
+		D6AEC1802830288A00E21694 /* CurrenciesTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AEC17F2830288A00E21694 /* CurrenciesTableViewCell.swift */; };
 		D6D0B96527DFC3800052F2F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B96427DFC3800052F2F1 /* AppDelegate.swift */; };
 		D6D0B96927DFC3800052F2F1 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B96827DFC3800052F2F1 /* MainViewController.swift */; };
 		D6D0B96C27DFC3800052F2F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D0B96A27DFC3800052F2F1 /* Main.storyboard */; };
 		D6D0B97127DFC3810052F2F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6D0B97027DFC3810052F2F1 /* Assets.xcassets */; };
 		D6D0B97427DFC3810052F2F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D0B97227DFC3810052F2F1 /* LaunchScreen.storyboard */; };
-		D6D0B97F27DFC3820052F2F1 /* iOS_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B97E27DFC3820052F2F1 /* iOS_AppTests.swift */; };
-		D6D0B98927DFC3820052F2F1 /* iOS_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B98827DFC3820052F2F1 /* iOS_AppUITests.swift */; };
-		D6D0B98B27DFC3820052F2F1 /* iOS_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B98A27DFC3820052F2F1 /* iOS_AppUITestsLaunchTests.swift */; };
+		D6D0B97F27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B97E27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift */; };
+		D6D0B98927DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B98827DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift */; };
+		D6D0B98B27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B98A27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift */; };
 		D6EC2510280D4BBA00C5BBFE /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC250F280D4BBA00C5BBFE /* TabBarViewController.swift */; };
 		D6F25C7F27F1F35F00A5A25A /* AccountsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F25C7E27F1F35F00A5A25A /* AccountsTableViewCell.swift */; };
 		D6F25C8127F1F99C00A5A25A /* TransactionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F25C8027F1F99C00A5A25A /* TransactionsTableViewCell.swift */; };
@@ -91,6 +97,8 @@
 		D641DE1D280B0EEA00E2FCD8 /* ManagedObjectContextService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContextService.swift; sourceTree = "<group>"; };
 		D66125AF282F9BDF0022C8F2 /* SceneError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneError.swift; sourceTree = "<group>"; };
 		D66125B1282F9C1E0022C8F2 /* SceneCoordinator Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneCoordinator Error.swift"; sourceTree = "<group>"; };
+		D67C4924282FCEEC000B0514 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		D67C49262830115C000B0514 /* CurrencyTransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTransactionTableViewCell.swift; sourceTree = "<group>"; };
 		D67F005828074EC900E7A7E7 /* BindableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableProtocol.swift; sourceTree = "<group>"; };
 		D67F005E2807658C00E7A7E7 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		D68789E428069E9200EB95A4 /* Scene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scene.swift; sourceTree = "<group>"; };
@@ -102,6 +110,10 @@
 		D68789F128069FD200EB95A4 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
 		D6A30D3427FB2799004FF728 /* TextFieldTransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTransactionTableViewCell.swift; sourceTree = "<group>"; };
 		D6A30D3627FB27A3004FF728 /* DateTransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTransactionTableViewCell.swift; sourceTree = "<group>"; };
+		D6AEC17728301E3000E21694 /* TransactionTableViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCellType.swift; sourceTree = "<group>"; };
+		D6AEC17A28301FDC00E21694 /* CurrenciesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewController.swift; sourceTree = "<group>"; };
+		D6AEC17C28301FFC00E21694 /* CurrenciesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesViewModel.swift; sourceTree = "<group>"; };
+		D6AEC17F2830288A00E21694 /* CurrenciesTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrenciesTableViewCell.swift; sourceTree = "<group>"; };
 		D6D0B96127DFC3800052F2F1 /* Reactive Budget Tracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Reactive Budget Tracker.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D0B96427DFC3800052F2F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D6D0B96827DFC3800052F2F1 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -110,10 +122,10 @@
 		D6D0B97327DFC3810052F2F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6D0B97527DFC3810052F2F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6D0B97A27DFC3820052F2F1 /* Reactive Budget TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reactive Budget TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6D0B97E27DFC3820052F2F1 /* iOS_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_AppTests.swift; sourceTree = "<group>"; };
+		D6D0B97E27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive_Budget_TrackerTests.swift; sourceTree = "<group>"; };
 		D6D0B98427DFC3820052F2F1 /* Reactive Budget TrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reactive Budget TrackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6D0B98827DFC3820052F2F1 /* iOS_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_AppUITests.swift; sourceTree = "<group>"; };
-		D6D0B98A27DFC3820052F2F1 /* iOS_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D6D0B98827DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive_Budget_TrackerUITests.swift; sourceTree = "<group>"; };
+		D6D0B98A27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive_Budget_TrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D6EC250F280D4BBA00C5BBFE /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		D6F25C7E27F1F35F00A5A25A /* AccountsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableViewCell.swift; sourceTree = "<group>"; };
 		D6F25C8027F1F99C00A5A25A /* TransactionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewCell.swift; sourceTree = "<group>"; };
@@ -183,6 +195,7 @@
 			children = (
 				D6A30D3427FB2799004FF728 /* TextFieldTransactionTableViewCell.swift */,
 				D6A30D3627FB27A3004FF728 /* DateTransactionTableViewCell.swift */,
+				D67C49262830115C000B0514 /* CurrencyTransactionTableViewCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -193,6 +206,7 @@
 				D627426627FC71C3005DCED8 /* iOS_App.xcdatamodeld */,
 				D6F8B08F28099F6100F34148 /* Account+CoreDataClass.swift */,
 				D6F8B09128099F6100F34148 /* Transaction+CoreDataClass.swift */,
+				D67C4924282FCEEC000B0514 /* Currency.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -249,6 +263,7 @@
 				D620138527FB28EA00A5E491 /* Cells */,
 				D68789EA28069ED700EB95A4 /* TransactionViewModel.swift */,
 				D6182B4027F584A7006B0E6F /* TransactionViewController.swift */,
+				D6AEC17728301E3000E21694 /* TransactionTableViewCellType.swift */,
 			);
 			path = "Transaction View";
 			sourceTree = "<group>";
@@ -313,11 +328,30 @@
 			children = (
 				D66125A4282F9A0E0022C8F2 /* TabBar View */,
 				D66125A8282F9AC50022C8F2 /* Main View */,
+				D6AEC17928301FB200E21694 /* Currencies View */,
 				D66125A9282F9ADB0022C8F2 /* Transaction View */,
 				D66125AA282F9AEC0022C8F2 /* AccountsList View */,
 				D66125AB282F9B030022C8F2 /* Account View */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		D6AEC17928301FB200E21694 /* Currencies View */ = {
+			isa = PBXGroup;
+			children = (
+				D6AEC17E2830282700E21694 /* Cells */,
+				D6AEC17C28301FFC00E21694 /* CurrenciesViewModel.swift */,
+				D6AEC17A28301FDC00E21694 /* CurrenciesViewController.swift */,
+			);
+			path = "Currencies View";
+			sourceTree = "<group>";
+		};
+		D6AEC17E2830282700E21694 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				D6AEC17F2830288A00E21694 /* CurrenciesTableViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		D6D0B95827DFC3800052F2F1 = {
@@ -365,7 +399,7 @@
 		D6D0B97D27DFC3820052F2F1 /* Reactive Budget TrackerTests */ = {
 			isa = PBXGroup;
 			children = (
-				D6D0B97E27DFC3820052F2F1 /* iOS_AppTests.swift */,
+				D6D0B97E27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift */,
 			);
 			path = "Reactive Budget TrackerTests";
 			sourceTree = "<group>";
@@ -373,8 +407,8 @@
 		D6D0B98727DFC3820052F2F1 /* Reactive Budget TrackerUITests */ = {
 			isa = PBXGroup;
 			children = (
-				D6D0B98827DFC3820052F2F1 /* iOS_AppUITests.swift */,
-				D6D0B98A27DFC3820052F2F1 /* iOS_AppUITestsLaunchTests.swift */,
+				D6D0B98827DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift */,
+				D6D0B98A27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift */,
 			);
 			path = "Reactive Budget TrackerUITests";
 			sourceTree = "<group>";
@@ -621,13 +655,17 @@
 			files = (
 				D63FA66F280824DF00E2F5D0 /* NSManagedObjectContext+Rx.swift in Sources */,
 				D6F3A63A2806A71F0092ADBC /* SceneCoordinatorProtocol.swift in Sources */,
+				D6AEC17D28301FFC00E21694 /* CurrenciesViewModel.swift in Sources */,
 				D6F25C8327F2421800A5A25A /* AccountsListViewController.swift in Sources */,
 				D6F25C8127F1F99C00A5A25A /* TransactionsTableViewCell.swift in Sources */,
 				D6147173282ED85200FEB869 /* TextFieldAccountTableViewCell.swift in Sources */,
+				D6AEC1802830288A00E21694 /* CurrenciesTableViewCell.swift in Sources */,
+				D67C49272830115C000B0514 /* CurrencyTransactionTableViewCell.swift in Sources */,
 				D6FCB5AA2806D30100029083 /* SceneTransitionType.swift in Sources */,
 				D6FCB5B22806D7C300029083 /* AccountServiceProtocol.swift in Sources */,
 				D66125B2282F9C1E0022C8F2 /* SceneCoordinator Error.swift in Sources */,
 				D6D0B96927DFC3800052F2F1 /* MainViewController.swift in Sources */,
+				D6AEC17B28301FDC00E21694 /* CurrenciesViewController.swift in Sources */,
 				D68789F228069FD200EB95A4 /* AccountViewModel.swift in Sources */,
 				D6F8B09528099F6100F34148 /* Transaction+CoreDataClass.swift in Sources */,
 				D6FCB5AE2806D46E00029083 /* TransactionService.swift in Sources */,
@@ -645,9 +683,11 @@
 				D6F25C7F27F1F35F00A5A25A /* AccountsTableViewCell.swift in Sources */,
 				D67F005928074EC900E7A7E7 /* BindableProtocol.swift in Sources */,
 				D6A30D3727FB27A3004FF728 /* DateTransactionTableViewCell.swift in Sources */,
+				D67C4925282FCEEC000B0514 /* Currency.swift in Sources */,
 				D6A30D3527FB2799004FF728 /* TextFieldTransactionTableViewCell.swift in Sources */,
 				D67F005F2807658C00E7A7E7 /* SceneDelegate.swift in Sources */,
 				D68789E728069EA000EB95A4 /* SceneCoordinator.swift in Sources */,
+				D6AEC17828301E3000E21694 /* TransactionTableViewCellType.swift in Sources */,
 				D6FCB5B42806D7CF00029083 /* AccountService.swift in Sources */,
 				D68789ED28069F1600EB95A4 /* AccountsListViewModel.swift in Sources */,
 				D641DE1E280B0EEA00E2FCD8 /* ManagedObjectContextService.swift in Sources */,
@@ -660,7 +700,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6D0B97F27DFC3820052F2F1 /* iOS_AppTests.swift in Sources */,
+				D6D0B97F27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -668,8 +708,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6D0B98B27DFC3820052F2F1 /* iOS_AppUITestsLaunchTests.swift in Sources */,
-				D6D0B98927DFC3820052F2F1 /* iOS_AppUITests.swift in Sources */,
+				D6D0B98B27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift in Sources */,
+				D6D0B98927DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

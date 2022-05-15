@@ -12,7 +12,7 @@
         <!--Accounts-->
         <scene sceneID="Fkb-eo-2Yh">
             <objects>
-                <viewController id="sDq-P8-Kh4" customClass="AccountsListViewController" customModule="iOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="sDq-P8-Kh4" customClass="AccountsListViewController" customModule="Reactive_Budget_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="K4n-Zr-caX">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountsTableViewCell" id="N6W-ex-FL0" customClass="AccountsTableViewCell" customModule="iOS_App" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="AccountsTableViewCell" id="N6W-ex-FL0" customClass="AccountsTableViewCell" customModule="Reactive_Budget_Tracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="N6W-ex-FL0" id="omq-8c-zQD">
@@ -76,7 +76,7 @@
         <!--Main-->
         <scene sceneID="QF1-li-19Z">
             <objects>
-                <viewController id="qLV-vo-SCf" customClass="MainViewController" customModule="iOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="qLV-vo-SCf" customClass="MainViewController" customModule="Reactive_Budget_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IeV-iw-KQQ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -85,7 +85,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionsTableViewCell" id="o1k-SC-ivp" customClass="TransactionsTableViewCell" customModule="iOS_App" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionsTableViewCell" id="o1k-SC-ivp" customClass="TransactionsTableViewCell" customModule="Reactive_Budget_Tracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="56"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o1k-SC-ivp" id="6XY-uz-Xhn">
@@ -167,7 +167,7 @@
         <!--Transaction-->
         <scene sceneID="DvJ-pk-nzw">
             <objects>
-                <viewController storyboardIdentifier="TransactionViewControllerIdentifier" id="w7x-V0-OIA" customClass="TransactionViewController" customModule="iOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="TransactionViewControllerIdentifier" id="w7x-V0-OIA" customClass="TransactionViewController" customModule="Reactive_Budget_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eLk-Tz-fBA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -176,69 +176,103 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextFieldTransactionTableViewCellIdentifier" id="Mad-Qt-Kor" customClass="TextFieldTransactionTableViewCell" customModule="iOS_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="44.5" width="414" height="48.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextFieldTransactionTableViewCellIdentifier" id="Mad-Qt-Kor" customClass="TextFieldTransactionTableViewCell" customModule="Reactive_Budget_Tracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="56.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Mad-Qt-Kor" id="5oc-2h-ZMV">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="48.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="56.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pL6-6Z-kiA">
-                                                    <rect key="frame" x="20" y="14" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pL6-6Z-kiA">
+                                                    <rect key="frame" x="20" y="20" width="28.5" height="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EkI-Q1-iXJ">
-                                                    <rect key="frame" x="75" y="7" width="319" height="34.5"/>
+                                                    <rect key="frame" x="68.5" y="11" width="325.5" height="34.5"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="EkI-Q1-iXJ" firstAttribute="top" secondItem="5oc-2h-ZMV" secondAttribute="top" constant="7" id="SWX-fm-FQK"/>
-                                                <constraint firstItem="pL6-6Z-kiA" firstAttribute="centerY" secondItem="EkI-Q1-iXJ" secondAttribute="centerY" id="fhY-Ow-fni"/>
-                                                <constraint firstAttribute="bottom" secondItem="EkI-Q1-iXJ" secondAttribute="bottom" constant="7" id="hGO-AL-YHL"/>
+                                                <constraint firstItem="pL6-6Z-kiA" firstAttribute="centerY" secondItem="EkI-Q1-iXJ" secondAttribute="centerY" id="R1m-DZ-yVI"/>
+                                                <constraint firstItem="EkI-Q1-iXJ" firstAttribute="top" secondItem="5oc-2h-ZMV" secondAttribute="topMargin" id="SWX-fm-FQK"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="EkI-Q1-iXJ" secondAttribute="bottom" id="hGO-AL-YHL"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="EkI-Q1-iXJ" secondAttribute="trailing" id="i40-bV-x81"/>
                                                 <constraint firstItem="pL6-6Z-kiA" firstAttribute="leading" secondItem="5oc-2h-ZMV" secondAttribute="leadingMargin" id="xZM-KY-I5X"/>
-                                                <constraint firstItem="EkI-Q1-iXJ" firstAttribute="leading" secondItem="pL6-6Z-kiA" secondAttribute="trailing" constant="13" id="xrD-Os-Pde"/>
+                                                <constraint firstItem="EkI-Q1-iXJ" firstAttribute="leading" secondItem="pL6-6Z-kiA" secondAttribute="trailing" constant="20" id="xrD-Os-Pde"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="label" destination="pL6-6Z-kiA" id="7Yq-ZV-5Gv"/>
                                             <outlet property="textField" destination="EkI-Q1-iXJ" id="zXs-fX-6bv"/>
+                                            <outlet property="titleLabel" destination="pL6-6Z-kiA" id="7Yq-ZV-5Gv"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DateTransactionTableViewCellIdentifier" id="2T1-pw-LFO" customClass="DateTransactionTableViewCell" customModule="iOS_App" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="93" width="414" height="45.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DateTransactionTableViewCellIdentifier" id="2T1-pw-LFO" customClass="DateTransactionTableViewCell" customModule="Reactive_Budget_Tracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="101" width="414" height="53.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2T1-pw-LFO" id="qLH-qn-dCx">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="45.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="53.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YT5-5c-20x">
-                                                    <rect key="frame" x="20" y="12.5" width="42" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YT5-5c-20x">
+                                                    <rect key="frame" x="20" y="18.5" width="28.5" height="17"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <datePicker contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" style="compact" translatesAutoresizingMaskIntoConstraints="NO" id="nrf-os-sIm">
-                                                    <rect key="frame" x="75" y="7" width="319" height="31.5"/>
+                                                    <rect key="frame" x="68.5" y="11" width="325.5" height="31.5"/>
                                                 </datePicker>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailingMargin" secondItem="nrf-os-sIm" secondAttribute="trailing" id="093-aD-Dac"/>
-                                                <constraint firstAttribute="bottom" secondItem="nrf-os-sIm" secondAttribute="bottom" constant="7" id="1a0-Mx-Abh"/>
-                                                <constraint firstItem="YT5-5c-20x" firstAttribute="centerY" secondItem="qLH-qn-dCx" secondAttribute="centerY" id="7rj-gk-ofd"/>
-                                                <constraint firstItem="nrf-os-sIm" firstAttribute="centerY" secondItem="qLH-qn-dCx" secondAttribute="centerY" id="FR3-un-G5g"/>
-                                                <constraint firstItem="nrf-os-sIm" firstAttribute="top" secondItem="qLH-qn-dCx" secondAttribute="top" constant="7" id="QGt-W7-PBa"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="nrf-os-sIm" secondAttribute="bottom" id="9PN-X5-DaY"/>
+                                                <constraint firstItem="YT5-5c-20x" firstAttribute="centerY" secondItem="nrf-os-sIm" secondAttribute="centerY" id="Ia8-Qq-rF3"/>
+                                                <constraint firstItem="nrf-os-sIm" firstAttribute="leading" secondItem="YT5-5c-20x" secondAttribute="trailing" constant="20" id="WQy-mf-oGZ"/>
                                                 <constraint firstItem="YT5-5c-20x" firstAttribute="leading" secondItem="qLH-qn-dCx" secondAttribute="leadingMargin" id="fdk-0A-U4n"/>
-                                                <constraint firstItem="nrf-os-sIm" firstAttribute="leading" secondItem="YT5-5c-20x" secondAttribute="trailing" constant="13" id="qs0-EC-wze"/>
+                                                <constraint firstItem="nrf-os-sIm" firstAttribute="top" secondItem="qLH-qn-dCx" secondAttribute="topMargin" id="tXp-57-A1w"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="datePicker" destination="nrf-os-sIm" id="k5a-O6-kGC"/>
-                                            <outlet property="label" destination="YT5-5c-20x" id="1Io-Ep-W31"/>
+                                            <outlet property="titleLabel" destination="YT5-5c-20x" id="1Io-Ep-W31"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CurrencyTransactionTableViewCellIdentifier" id="9vI-J2-0Pi" customClass="CurrencyTransactionTableViewCell" customModule="Reactive_Budget_Tracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="154.5" width="414" height="39.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9vI-J2-0Pi" id="UqH-k8-HdF">
+                                            <rect key="frame" x="0.0" y="0.0" width="385.5" height="39.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EVY-KP-uvD">
+                                                    <rect key="frame" x="20" y="11" width="28.5" height="17.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="USD" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yvu-sd-bee">
+                                                    <rect key="frame" x="349.5" y="11" width="28" height="17.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="Yvu-sd-bee" secondAttribute="bottom" id="0xK-yN-lA2"/>
+                                                <constraint firstItem="EVY-KP-uvD" firstAttribute="top" secondItem="UqH-k8-HdF" secondAttribute="topMargin" id="9Ri-Wb-jys"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Yvu-sd-bee" secondAttribute="trailing" id="KDY-VP-bb5"/>
+                                                <constraint firstItem="EVY-KP-uvD" firstAttribute="leading" secondItem="UqH-k8-HdF" secondAttribute="leadingMargin" id="NLa-yA-rZv"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="EVY-KP-uvD" secondAttribute="bottom" id="Xyv-eM-79u"/>
+                                                <constraint firstItem="Yvu-sd-bee" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="EVY-KP-uvD" secondAttribute="trailing" constant="20" id="ald-sK-epZ"/>
+                                                <constraint firstItem="Yvu-sd-bee" firstAttribute="top" secondItem="UqH-k8-HdF" secondAttribute="topMargin" id="xdE-5V-aFf"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="currencyLabel" destination="Yvu-sd-bee" id="QcK-yA-xj7"/>
+                                            <outlet property="titleLabel" destination="EVY-KP-uvD" id="8Rc-wi-Bud"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -267,7 +301,64 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QqU-ih-TIc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1393" y="-917"/>
+            <point key="canvasLocation" x="1392.753623188406" y="-917.41071428571422"/>
+        </scene>
+        <!--Currencies View Controller-->
+        <scene sceneID="OVk-4A-GiP">
+            <objects>
+                <viewController storyboardIdentifier="CurrenciesViewController" id="hmP-sb-22D" customClass="CurrenciesViewController" customModule="Reactive_Budget_Tracker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="39Y-p5-TAG">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MKh-pQ-TaU">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="CurrenciesTableViewCellIdentifier" id="XBo-ez-Qre" customClass="CurrenciesTableViewCell" customModule="Reactive_Budget_Tracker" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="44.5" width="414" height="39.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="XBo-ez-Qre" id="puZ-tG-UOO">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="39.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jer-ew-cnr">
+                                                    <rect key="frame" x="20" y="11" width="35.5" height="17.5"/>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottomMargin" secondItem="jer-ew-cnr" secondAttribute="bottom" id="Hoz-Kc-14u"/>
+                                                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="jer-ew-cnr" secondAttribute="trailing" id="deL-eh-jJu"/>
+                                                <constraint firstItem="jer-ew-cnr" firstAttribute="leading" secondItem="puZ-tG-UOO" secondAttribute="leadingMargin" id="dqT-fX-yp1"/>
+                                                <constraint firstItem="jer-ew-cnr" firstAttribute="top" secondItem="puZ-tG-UOO" secondAttribute="topMargin" id="spM-Fp-Cfx"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="titleLabel" destination="jer-ew-cnr" id="9Ml-km-vLu"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="DDA-X9-GJz"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="DDA-X9-GJz" firstAttribute="bottom" secondItem="MKh-pQ-TaU" secondAttribute="bottom" id="BpW-WQ-W3f"/>
+                            <constraint firstItem="DDA-X9-GJz" firstAttribute="trailing" secondItem="MKh-pQ-TaU" secondAttribute="trailing" id="Hxz-gj-Fp7"/>
+                            <constraint firstItem="MKh-pQ-TaU" firstAttribute="top" secondItem="DDA-X9-GJz" secondAttribute="top" id="dFc-aE-DGe"/>
+                            <constraint firstItem="MKh-pQ-TaU" firstAttribute="leading" secondItem="DDA-X9-GJz" secondAttribute="leading" id="xkg-LQ-Vrb"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="tableView" destination="MKh-pQ-TaU" id="AeL-EG-p04"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2f9-Ys-IH3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2245" y="-917"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="9Ia-vg-RSB">
@@ -287,7 +378,7 @@
         <!--Tab Bar View Controller-->
         <scene sceneID="2BC-fV-M3d">
             <objects>
-                <tabBarController storyboardIdentifier="TabBarViewController" id="XvM-0t-Rnn" customClass="TabBarViewController" customModule="iOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabBarViewController" id="XvM-0t-Rnn" customClass="TabBarViewController" customModule="Reactive_Budget_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="gr4-vn-etb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -357,7 +448,7 @@
         <!--Account-->
         <scene sceneID="uW8-Sc-rwE">
             <objects>
-                <viewController id="94U-wH-dyR" customClass="AccountViewController" customModule="iOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="94U-wH-dyR" customClass="AccountViewController" customModule="Reactive_Budget_Tracker" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="p8G-np-hEb">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -366,7 +457,7 @@
                                 <rect key="frame" x="0.0" y="88" width="414" height="808"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextFieldAccountTableViewCell" id="8NA-FK-BHt" customClass="TextFieldAccountTableViewCell" customModule="iOS_App" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TextFieldAccountTableViewCell" id="8NA-FK-BHt" customClass="TextFieldAccountTableViewCell" customModule="Reactive_Budget_Tracker" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="44.5" width="414" height="56.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="8NA-FK-BHt" id="v0n-TZ-ykb">

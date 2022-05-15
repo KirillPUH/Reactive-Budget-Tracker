@@ -16,12 +16,12 @@ enum MainViewModelError: Error {
 }
 
 struct MainViewModel {
+    private var disposeBag: DisposeBag
+    
     public var sceneCoordinator: SceneCoordinatorProtocol
     
     public let transactionService: TransactionServiceProtocol
     private let managedObjectContrextService: ManagedObjectContextServiceProtocol
-    
-    private let disposeBag: DisposeBag
     
     public var tableItemsSubject: BehaviorSubject<[TransactionsListModel]>
     
@@ -96,11 +96,14 @@ struct MainViewModel {
         transactionService.delete(transaction: transaction)
         
         managedObjectContrextService.saveContext()
-            .subscribe(onCompleted: {
-                subject.onCompleted()
-            }, onError: { subject.onError($0) })
+            .subscribe { subject.onCompleted() } onError: { subject.onError($0) }
             .disposed(by: disposeBag)
         
         return subject.asCompletable()
+    }
+    
+    public func transaction(for indexPath: IndexPath) -> Transaction {
+        let section = try! tableItemsSubject.value()[indexPath.section]
+        return section.items[indexPath.row]
     }
 }

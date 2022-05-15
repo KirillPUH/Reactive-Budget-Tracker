@@ -12,12 +12,13 @@ import RxCocoa
 import RxDataSources
 
 final class TransactionViewController: UIViewController, BindableProtocol {
+    private typealias DataSourceType = RxTableViewSectionedReloadDataSource<TransactionCellModel>
     
     var viewModel: TransactionViewModel!
     
     private var disposeBag: DisposeBag!
     
-    private var dataSource: RxTableViewSectionedReloadDataSource<TransactionCellModel>!
+    private var dataSource: DataSourceType!
     
     @IBOutlet var doneButton: UIBarButtonItem!
     @IBOutlet var cancelButton: UIBarButtonItem!
@@ -38,8 +39,8 @@ final class TransactionViewController: UIViewController, BindableProtocol {
             })
             .disposed(by: disposeBag)
         
-        dataSource = RxTableViewSectionedReloadDataSource<TransactionCellModel>(configureCell: { [weak self] dataSource, tableView, indexPath, cellType in
-            guard let self = self else { return UITableViewCell() }
+        dataSource = DataSourceType(configureCell: { [weak self] dataSource, tableView, indexPath, cellType in
+            guard let strongSelf = self else { return UITableViewCell() }
     
             switch cellType {
             case .title:
@@ -47,29 +48,14 @@ final class TransactionViewController: UIViewController, BindableProtocol {
                     fatalError()
                 }
 
-                cell.label.text = "Title"
-                cell.textField.rx.text
-                    .orEmpty
-                    .debounce(.milliseconds(50), scheduler: MainScheduler.instance)
-                    .subscribe { [weak self] in
-                        self?.viewModel.transaction.title = $0
-                    }
-                    .disposed(by: self.disposeBag)
+                cell.configure(for: .title, title: "Date", transaction: strongSelf.viewModel.transaction)
                 
                 return cell
             case .currency:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: cellType.identifier) as? TextFieldTransactionTableViewCell else {
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: cellType.identifier) as? CurrencyTransactionTableViewCell else {
                     fatalError()
                 }
-
-                cell.label.text = "Currency"
-                cell.textField.rx.text
-                    .orEmpty
-                    .debounce(.milliseconds(50), scheduler: MainScheduler.instance)
-                    .subscribe { [weak self] in
-                        self?.viewModel.transaction.currency = $0
-                    }
-                    .disposed(by: self.disposeBag)
+                cell.configure(title: "Currency", transaction: strongSelf.viewModel.transaction)
                 
                 return cell
             case .amount:
@@ -77,15 +63,7 @@ final class TransactionViewController: UIViewController, BindableProtocol {
                     fatalError()
                 }
 
-                cell.label.text = "Amount"
-                cell.textField.rx.text
-                    .debounce(.milliseconds(50), scheduler: MainScheduler.instance)
-                    .subscribe(onNext: { [weak self] in
-                        if let str = $0, let num = Double(str) {
-                            self?.viewModel.transaction.amount = NSNumber(value: num)
-                        }
-                    })
-                    .disposed(by: self.disposeBag)
+                cell.configure(for: .amount, title: "Amount", transaction: strongSelf.viewModel.transaction)
 
                 return cell
             case .date:
@@ -93,13 +71,7 @@ final class TransactionViewController: UIViewController, BindableProtocol {
                     fatalError()
                 }
 
-                cell.label.text = "Date"
-                cell.datePicker.rx.date
-                    .debounce(.milliseconds(50), scheduler: MainScheduler.instance)
-                    .subscribe(onNext: { [weak self] in
-                        self?.viewModel.transaction.date = $0
-                    })
-                    .disposed(by: self.disposeBag)
+                cell.configure(title: "Date", transaction: strongSelf.viewModel.transaction)
                 
                 return cell
             }
@@ -108,5 +80,45 @@ final class TransactionViewController: UIViewController, BindableProtocol {
         viewModel.tableItems
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+        
+        let firstObserver = viewModel.transaction.rx.observe(\.title)
+        let secondObserver = viewModel.transaction.rx.observe(\.amount)
+        
+        Observable.combineLatest(firstObserver, secondObserver)
+            .subscribe(onNext: { [weak self] title, amount in
+                if let title = title, !title.isEmpty,
+                   let _ = amount {
+                    self?.doneButton.isEnabled = true
+                } else {
+                    self?.doneButton.isEnabled = false
+                }
+            })
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let selectedRowIndexPath = tableView.indexPathForSelectedRow {
+            tableView.deselectRow(at: selectedRowIndexPath, animated: false)
+        }
+    }
+}
+
+extension TransactionViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, shouldHighlightRowAt indexPath: IndexPath) -> Bool {
+        TransactionTableViewCellType(rawValue: indexPath.row) == .currency
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if TransactionTableViewCellType(rawValue: indexPath.row) == .currency {
+            let viewModel = CurrenciesViewModel(sceneCoordinator: viewModel.sceneCoordinator, transaction: viewModel.transaction)
+            viewModel.sceneCoordinator.transition(to: .currencies(viewModel), with: .push)
+        }
     }
 }

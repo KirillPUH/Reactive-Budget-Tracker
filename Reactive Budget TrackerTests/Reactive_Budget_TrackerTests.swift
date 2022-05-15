@@ -1,14 +1,14 @@
 //
-//  iOS_AppTests.swift
+//  Reactive_Budget_TrackerTests.swift
 //  iOS AppTests
 //
 //  Created by Kirill Pukhov on 14.03.2022.
 //
 
 import XCTest
-@testable import iOS_App
+@testable import Reactive_Budget_Tracker
 
-class iOS_AppTests: XCTestCase {
+class Reactive_Budget_TrackerTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

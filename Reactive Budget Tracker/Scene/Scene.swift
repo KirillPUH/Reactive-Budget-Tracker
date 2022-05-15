@@ -14,6 +14,7 @@ enum Scene {
     case transaction(TransactionViewModel)
     case account(AccountViewModel)
     case accountsList(AccountsListViewModel)
+    case currencies(CurrenciesViewModel)
 }
 
 extension Scene {
@@ -56,6 +57,13 @@ extension Scene {
                let vc = nc.viewControllers.first as? AccountViewController {
                 vc.bindViewModel(to: viewModel)
                 return nc
+            }
+            
+            throw SceneError.viewControllerDidNotFound
+        case .currencies(let viewModel):
+            if let vc = storyboard.instantiateViewController(withIdentifier: CurrenciesViewController.storyboardID) as? CurrenciesViewController {
+                vc.bindViewModel(to: viewModel)
+                return vc
             }
             
             throw SceneError.viewControllerDidNotFound

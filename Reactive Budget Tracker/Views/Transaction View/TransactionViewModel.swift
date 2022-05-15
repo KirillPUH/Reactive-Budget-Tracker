@@ -9,33 +9,12 @@ import Foundation
 import RxSwift
 import RxDataSources
 
-enum TransactionTableViewCellType: CaseIterable {
-    case title
-    case currency
-    case amount
-    case date
-    
-    var identifier: String {
-        switch self {
-        case .title:
-            return TextFieldTransactionTableViewCell.identifier
-        case .currency:
-            return TextFieldTransactionTableViewCell.identifier
-        case .amount:
-            return TextFieldTransactionTableViewCell.identifier
-        case .date:
-            return DateTransactionTableViewCell.identifier
-        }
-    }
-    
-}
-
 typealias TransactionCellModel = SectionModel<String, TransactionTableViewCellType>
 
 struct TransactionViewModel {
     public var sceneCoordinator: SceneCoordinatorProtocol
     
-    private let managedObjectContextService: ManagedObjectContextService
+    public let managedObjectContextService: ManagedObjectContextService
     
     private let disposeBag: DisposeBag
     

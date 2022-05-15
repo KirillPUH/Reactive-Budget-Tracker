@@ -1,5 +1,5 @@
 //
-//  iOS_AppUITestsLaunchTests.swift
+//  Reactive_Budget_TrackerUITestsLaunchTests.swift
 //  iOS AppUITests
 //
 //  Created by Kirill Pukhov on 14.03.2022.
@@ -7,7 +7,7 @@
 
 import XCTest
 
-class iOS_AppUITestsLaunchTests: XCTestCase {
+class Reactive_Budget_TrackerUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

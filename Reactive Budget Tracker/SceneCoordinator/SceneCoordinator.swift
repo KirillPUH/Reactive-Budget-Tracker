@@ -80,7 +80,8 @@ class SceneCoordinator: SceneCoordinatorProtocol {
     func pop(animated: Bool) -> Completable {
        let subject = PublishSubject<Void>()
         
-        if let presenter = currentViewController.presentingViewController {
+        if let presenter = currentViewController.presentingViewController,
+           currentViewController.navigationController?.viewControllers.count == 1 {
             currentViewController.dismiss(animated: animated) {
                 self.currentViewController = Self.actualViewController(for: presenter)
                 

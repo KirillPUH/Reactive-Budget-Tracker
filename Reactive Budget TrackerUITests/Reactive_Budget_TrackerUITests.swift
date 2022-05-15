@@ -1,5 +1,5 @@
 //
-//  iOS_AppUITests.swift
+//  Reactive_Budget_TrackerUITests.swift
 //  iOS AppUITests
 //
 //  Created by Kirill Pukhov on 14.03.2022.
@@ -7,7 +7,7 @@
 
 import XCTest
 
-class iOS_AppUITests: XCTestCase {
+class Reactive_Budget_TrackerUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
