@@ -17,6 +17,7 @@ class ManagedObjectContextService: ManagedObjectContextServiceProtocol {
         let subject = PublishSubject<Never>()
         
         do {
+
             try context.save()
             subject.onCompleted()
         } catch {

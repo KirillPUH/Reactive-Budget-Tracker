@@ -6,22 +6,30 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class TextFieldAccountTableViewCell: UITableViewCell {
-    static let identifier = "TextFieldAccountTableViewCell"
+    static let identifier = "TextFieldAccountTableViewCellIdentifier"
     
-    @IBOutlet var title: UILabel!
+    private var disposeBag: DisposeBag!
+    
+    @IBOutlet var titleLabel: UILabel!
     @IBOutlet var textField: UITextField!
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    func configure(title: String, account: Account) {
+        disposeBag = DisposeBag()
+        
+        titleLabel.text = title
+        
+        textField.text = account.title
+        
+        textField.rx.text
+            .asDriver()
+            .drive {
+                account.title = $0
+            }
+            .disposed(by: disposeBag)
     }
 
 }

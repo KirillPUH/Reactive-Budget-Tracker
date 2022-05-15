@@ -22,11 +22,6 @@ final class CurrenciesViewController: UIViewController, BindableProtocol {
     
     @IBOutlet var tableView: UITableView!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-    }
-    
     func bindViewModel() {
         disposeBag = DisposeBag()
         
@@ -40,11 +35,28 @@ final class CurrenciesViewController: UIViewController, BindableProtocol {
             return cell
         })
         
-        tableView.delegate = self
-        
         viewModel.tableItems
             .bind(to: tableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+        
+        navigationItem.leftBarButtonItem?.rx.tap.asDriver()
+            .drive(onNext: { [weak self] in
+                self?.viewModel.sceneCoordinator.pop(animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        tableView.delegate = self
+        
+        navigationItem.hidesBackButton = false
+        
+        let backButton = UIBarButtonItem(title: "Back")
+        navigationItem.leftBarButtonItem = backButton
+    
+        navigationItem.title = "Currency"
     }
     
 }

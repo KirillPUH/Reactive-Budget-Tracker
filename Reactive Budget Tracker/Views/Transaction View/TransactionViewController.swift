@@ -48,7 +48,7 @@ final class TransactionViewController: UIViewController, BindableProtocol {
                     fatalError()
                 }
 
-                cell.configure(for: .title, title: "Date", transaction: strongSelf.viewModel.transaction)
+                cell.configure(for: .title, title: "Title", transaction: strongSelf.viewModel.transaction)
                 
                 return cell
             case .currency:
@@ -93,6 +93,7 @@ final class TransactionViewController: UIViewController, BindableProtocol {
                     self?.doneButton.isEnabled = false
                 }
             })
+            .disposed(by: disposeBag)
     }
     
     override func viewDidLoad() {

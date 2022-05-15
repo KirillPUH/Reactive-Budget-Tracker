@@ -12,23 +12,6 @@ import RxDataSources
 
 typealias AccountCellModel = SectionModel<String, AccountTableViewCellType>
 
-enum AccountTableViewCellType: CaseIterable {
-    case title
-}
-
-extension AccountTableViewCellType {
-    var identifier: String {
-        switch self {
-        case .title:
-            return TextFieldAccountTableViewCell.identifier
-        }
-    }
-}
-
-enum AccountViewModelError: Error {
-    case savingContextError(Error)
-}
-
 struct AccountViewModel {
     public let sceneCoordinator: SceneCoordinatorProtocol
     
@@ -62,15 +45,15 @@ struct AccountViewModel {
         let subject = PublishSubject<Never>()
         
         managedObjectContextService.saveContext()
-            .subscribe(onError: { subject.onError($0) })
-            .disposed(by: disposeBag)
-        
-        accountService.changeCurrentAccount(to: account)
-            .subscribe(onError: { subject.onError($0) })
-            .disposed(by: disposeBag)
-        
-        sceneCoordinator.pop(animated: true)
-            .subscribe(onError: { subject.onError($0) })
+            .subscribe(onCompleted: {
+                accountService.changeCurrentAccount(to: account)
+                    .subscribe(onError: { subject.onError($0) })
+                    .disposed(by: disposeBag)
+                
+                sceneCoordinator.pop(animated: true)
+                    .subscribe(onError: { subject.onError($0) })
+                    .disposed(by: disposeBag)
+            }, onError: { subject.onError($0) })
             .disposed(by: disposeBag)
         
         subject.onCompleted()

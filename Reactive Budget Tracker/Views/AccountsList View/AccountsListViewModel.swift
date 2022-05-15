@@ -76,7 +76,8 @@ struct AccountsListViewModel {
     public func onSelectAccount(at indexPath: IndexPath) -> Completable {
         let subject = PublishSubject<Never>()
         
-        let account = try! tableItemsSubject.value()[0].items[indexPath.row]
+        let section = try! tableItemsSubject.value()[indexPath.section]
+        let account = section.items[indexPath.row]
         accountService.changeCurrentAccount(to: account)
         subject.onCompleted()
         
@@ -109,5 +110,10 @@ struct AccountsListViewModel {
             .disposed(by: disposeBag)
         
         return subject.asCompletable()
+    }
+    
+    public func account(for indexPath: IndexPath) -> Account {
+        let section = try! tableItemsSubject.value()[indexPath.section]
+        return section.items[indexPath.row]
     }
 }

@@ -41,16 +41,19 @@ class AccountViewController: UIViewController, BindableProtocol {
             switch cellType {
             case .title:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: cellType.identifier) as? TextFieldAccountTableViewCell else {
-                    fatalError("Can't dequeue reusable cell with \(cellType.identifier) identifier.")
+                    fatalError()
                 }
                 
-                cell.title.text = "Title"
+                cell.configure(title: "Title", account: self.viewModel.account)
                 
-                cell.textField.rx.text.asDriver()
-                    .drive { [weak self] in
-                        self?.viewModel.account.title = $0
-                    }
-                    .disposed(by: self.disposeBag)
+                return cell
+            case .currency:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: cellType.identifier) as? CurrencyAccountTableViewCell else {
+                    fatalError()
+                }
+                
+                cell.configure(title: "Currency", account: self.viewModel.account)
+                
                 return cell
             }
         })
@@ -58,5 +61,43 @@ class AccountViewController: UIViewController, BindableProtocol {
         viewModel.tableItems
             .bind(to: accountTableView.rx.items(dataSource: dataSource))
             .disposed(by: disposeBag)
+        
+        let firstObserver = viewModel.account.rx.observe(\.title)
+        firstObserver
+            .subscribe(onNext: { [weak self] in
+                if let title = $0, title.isEmpty {
+                    self?.doneButton.isEnabled = false
+                } else {
+                    self?.doneButton.isEnabled = true
+                }
+            })
+            .disposed(by: disposeBag)
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        accountTableView.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if let selectedRowIndexPath = accountTableView.indexPathForSelectedRow {
+            accountTableView.deselectRow(at: selectedRowIndexPath, animated: false)
+        }
+    }
+    
+}
+
+extension AccountViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if AccountTableViewCellType.allCases[indexPath.row] == .currency {
+            let viewModel = CurrenciesViewModel(sceneCoordinator: self.viewModel.sceneCoordinator,
+                                                account: self.viewModel.account)
+            viewModel.sceneCoordinator.transition(to: .currencies(viewModel), with: .push)
+        }
+    }
+    
 }

@@ -15,37 +15,40 @@ class TransactionsTableViewCell: UITableViewCell {
     @IBOutlet weak var amountLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     
-    let dateFormatter: DateFormatter = {
+    private static let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.timeStyle = .short
-        formatter.dateStyle = .short
+        formatter.dateStyle = .none
         return formatter
     }()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+    private static let amountFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.allowsFloats = true
+        formatter.maximumFractionDigits = 2
+        return formatter
+    }()
     
     func configure(_ transaction: Transaction) {
         titleLabel.text = transaction.title
-        if let convertedAmount = transaction.convertedAmount as? Double {
-            convertedAmountLabel.text = "\(String(convertedAmount)) \(transaction.account!.currency!)"
+        
+        guard let amount = transaction.amount,
+              let transactionCurrency = transaction.currency,
+              let date = transaction.date else {
+            return
         }
         
-        if let date = transaction.date {
-            dateLabel.text = dateFormatter.string(from: date)
+        if let convertedAmount = transaction.convertedAmount,
+           let accountCurrency = transaction.account?.currency {
+            convertedAmountLabel.text = "\(Self.amountFormatter.string(from: convertedAmount)!) \(accountCurrency)"
+            amountLabel.isHidden = false
+            amountLabel.text = "\(Self.amountFormatter.string(from: amount)!) \(transactionCurrency)"
+        } else {
+            convertedAmountLabel.text = "\(Self.amountFormatter.string(from: amount)!) \(transactionCurrency)"
+            amountLabel.isHidden = true
         }
         
-        if let amount = transaction.amount as? Double {
-            amountLabel.text = "\(String(amount)) \(transaction.currency!)"
-        }
+        dateLabel.text = Self.dateFormatter.string(from: date)
     }
-
+    
 }

@@ -36,12 +36,10 @@ class TransactionService: TransactionServiceProtocol {
                 let fetchRequest = Account.fetchRequest()
                 
 //            ERROR: With using of predicate newly created account fetch requests returns empty array!
-//            fetchRequest.predicate = predicate
+//                fetchRequest.predicate = predicate
                 
-                let account = try! self.managedObjectContext.context.fetch(fetchRequest).first(where: { $0.id!.uuidString == uuidString })
-                
-                // Get current account
-                guard let account = try! self.managedObjectContext.context.fetch(fetchRequest).first else {
+                let accounts = try! self.managedObjectContext.context.fetch(fetchRequest)
+                guard let account = accounts.first(where: { $0.id!.uuidString == uuidString }) else {
                     subject.onNext(nil)
                     return
                 }
