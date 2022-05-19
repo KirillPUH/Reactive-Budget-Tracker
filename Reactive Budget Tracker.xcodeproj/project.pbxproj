@@ -47,6 +47,8 @@
 		D6D0B97F27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B97E27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift */; };
 		D6D0B98927DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B98827DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift */; };
 		D6D0B98B27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B98A27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift */; };
+		D6E81FDD283271D300232393 /* AccountServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E81FDC283271D300232393 /* AccountServiceError.swift */; };
+		D6E81FDF283271EB00232393 /* MainViewModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E81FDE283271EB00232393 /* MainViewModelError.swift */; };
 		D6EC2510280D4BBA00C5BBFE /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC250F280D4BBA00C5BBFE /* TabBarViewController.swift */; };
 		D6F25C7F27F1F35F00A5A25A /* AccountsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F25C7E27F1F35F00A5A25A /* AccountsTableViewCell.swift */; };
 		D6F25C8127F1F99C00A5A25A /* TransactionsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6F25C8027F1F99C00A5A25A /* TransactionsTableViewCell.swift */; };
@@ -132,6 +134,8 @@
 		D6D0B98427DFC3820052F2F1 /* Reactive Budget TrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reactive Budget TrackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6D0B98827DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive_Budget_TrackerUITests.swift; sourceTree = "<group>"; };
 		D6D0B98A27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive_Budget_TrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D6E81FDC283271D300232393 /* AccountServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountServiceError.swift; sourceTree = "<group>"; };
+		D6E81FDE283271EB00232393 /* MainViewModelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelError.swift; sourceTree = "<group>"; };
 		D6EC250F280D4BBA00C5BBFE /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		D6F25C7E27F1F35F00A5A25A /* AccountsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsTableViewCell.swift; sourceTree = "<group>"; };
 		D6F25C8027F1F99C00A5A25A /* TransactionsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsTableViewCell.swift; sourceTree = "<group>"; };
@@ -249,6 +253,7 @@
 			children = (
 				D6FCB5B12806D7C300029083 /* AccountServiceProtocol.swift */,
 				D6FCB5B32806D7CF00029083 /* AccountService.swift */,
+				D6E81FDC283271D300232393 /* AccountServiceError.swift */,
 			);
 			path = "Account Service";
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 				D66125AC282F9B330022C8F2 /* Cells */,
 				D68789E828069EC400EB95A4 /* MainViewModel.swift */,
 				D6D0B96827DFC3800052F2F1 /* MainViewController.swift */,
+				D6E81FDE283271EB00232393 /* MainViewModelError.swift */,
 			);
 			path = "Main View";
 			sourceTree = "<group>";
@@ -667,6 +673,7 @@
 				D6AEC17D28301FFC00E21694 /* CurrenciesViewModel.swift in Sources */,
 				D6F25C8327F2421800A5A25A /* AccountsListViewController.swift in Sources */,
 				D6F25C8127F1F99C00A5A25A /* TransactionsTableViewCell.swift in Sources */,
+				D6E81FDF283271EB00232393 /* MainViewModelError.swift in Sources */,
 				D6147173282ED85200FEB869 /* TextFieldAccountTableViewCell.swift in Sources */,
 				D6AEC1802830288A00E21694 /* CurrenciesTableViewCell.swift in Sources */,
 				D67C49272830115C000B0514 /* CurrencyTransactionTableViewCell.swift in Sources */,
@@ -702,6 +709,7 @@
 				D68789ED28069F1600EB95A4 /* AccountsListViewModel.swift in Sources */,
 				D641DE1E280B0EEA00E2FCD8 /* ManagedObjectContextService.swift in Sources */,
 				D60C549128310B36009138C1 /* CurrencyAccountTableViewCell.swift in Sources */,
+				D6E81FDD283271D300232393 /* AccountServiceError.swift in Sources */,
 				D66125B0282F9BDF0022C8F2 /* SceneError.swift in Sources */,
 				D68789EB28069ED700EB95A4 /* TransactionViewModel.swift in Sources */,
 				D60C549528310DAC009138C1 /* AccountViewModelError.swift in Sources */,

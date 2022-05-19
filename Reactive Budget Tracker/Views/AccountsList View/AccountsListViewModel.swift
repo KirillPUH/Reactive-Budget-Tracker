@@ -13,15 +13,28 @@ import RxDataSources
 
 typealias AccountsListSection = AnimatableSectionModel<String, Account>
 
-struct AccountsListViewModel {
-    public var sceneCoordinator: SceneCoordinatorProtocol
+class AccountsListViewModel {
     
-    private let accountService: AccountServiceProtocol
+    private let sceneCoordinator: SceneCoordinatorProtocol
     private let managedObjectContextService: ManagedObjectContextServiceProtocol
+    private let accountService: AccountServiceProtocol
     
+    // Rx
     private let disposeBag: DisposeBag
     
-    public var tableItemsSubject: BehaviorSubject<[AccountsListSection]>
+    // Inputs
+    private(set) var editButtonAction: PublishSubject<Void>!
+    private(set) var createAccountAction: PublishSubject<Void>!
+    private(set) var deleteAccountAciton: PublishSubject<Account>!
+    private(set) var selectAccountAction: PublishSubject<Account>!
+    
+    // Outputs
+    private(set) var isEditButtonEnabled: Driver<Bool>!
+    private(set) var isPlusButtonEnabled: Driver<Bool>!
+    private(set) var isTableViewEditing: Driver<Bool>!
+    private(set) var tableItems: Observable<[AccountsListSection]>!
+    
+    private var isEditing: BehaviorSubject<Bool>!
     
     init(sceneCoordinator: SceneCoordinatorProtocol) {
         self.sceneCoordinator = sceneCoordinator
@@ -31,89 +44,90 @@ struct AccountsListViewModel {
         
         disposeBag = DisposeBag()
         
-        tableItemsSubject = BehaviorSubject<[AccountsListSection]>(value: [AccountsListSection]())
+        isEditing = BehaviorSubject<Bool>(value: false)
         
-        accountService.accounts
-            .map { [AccountsListSection(model: "Accounts", items: $0)] }
-            .subscribe(tableItemsSubject)
-            .disposed(by: disposeBag)
+        configureTableItems()
+        configureProperties()
+        configureActions()
     }
     
-    @discardableResult
-    public func onDeleteAccount(at indexPath: IndexPath) -> Completable {
-        let subject = PublishSubject<Never>()
-        
-        let account = try! tableItemsSubject.value()[0].items[indexPath.row]
-        
-        accountService.delete(account: account)
-        
-        managedObjectContextService.saveContext()
-            .subscribe(onCompleted: { subject.onCompleted() },
-                       onError: { subject.onError($0) })
-            .disposed(by: disposeBag)
-        
-        return subject.asCompletable()
-    }
-    
-    @discardableResult
-    public func onCreateAccount() -> Completable {
-        let subject = PublishSubject<Never>()
-        
-        accountService.createAccount()
-            .subscribe { account in                
-                let accountViewModel = AccountViewModel(for: account, sceneCoordinator: sceneCoordinator)
-                
-                sceneCoordinator.transition(to: .account(accountViewModel), with: .modal)
-                
-                subject.onCompleted()
-            } onFailure: { subject.onError($0) }
-            .disposed(by: disposeBag)
-        
-        return subject.asCompletable()
-    }
-    
-    @discardableResult
-    public func onSelectAccount(at indexPath: IndexPath) -> Completable {
-        let subject = PublishSubject<Never>()
-        
-        let section = try! tableItemsSubject.value()[indexPath.section]
-        let account = section.items[indexPath.row]
-        accountService.changeCurrentAccount(to: account)
-        subject.onCompleted()
-        
-        return subject.asCompletable()
-    }
-    
-    @discardableResult
-    public func onMoveAccount(from sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) -> Completable {
-        let subject = PublishSubject<Never>()
-        
-        let accounts = try! tableItemsSubject.value()[0].items
-        
-        let sourceIndex = sourceIndexPath.row
-        let destinationIndex = destinationIndexPath.row
+}
 
-        accounts[sourceIndex].orderPosition = Int32(destinationIndex + 1)
-        if sourceIndex > destinationIndex {
-            for row in destinationIndex..<sourceIndex {
-                accounts[row].orderPosition = Int32(row + 2)
-            }
-        } else if sourceIndex < destinationIndex {
-            for row in (sourceIndex + 1)...(destinationIndex) {
-                accounts[row].orderPosition = Int32(row)
-            }
-        }
-        
-        managedObjectContextService.saveContext()
-            .subscribe(onCompleted: { subject.onCompleted() },
-                       onError: { subject.onError($0) })
+extension AccountsListViewModel {
+    
+    private func configureActions() {
+        editButtonAction = PublishSubject<Void>()
+        editButtonAction
+            .subscribe(onNext: { [weak self] in
+                guard let strongSelf = self else { fatalError() }
+                
+                do {
+                    let currentState = try strongSelf.isEditing.value()
+                    self?.isEditing.onNext(!currentState)
+                } catch {
+                    self?.isEditing.onNext(false)
+                }
+            })
             .disposed(by: disposeBag)
         
-        return subject.asCompletable()
+        createAccountAction = PublishSubject<Void>()
+        createAccountAction
+            .subscribe(onNext: { [weak self] in
+                guard let strongSelf = self else { fatalError() }
+                
+                self?.accountService.createAccount()
+                    .subscribe(onSuccess: { account in
+                        let viewModel = AccountViewModel(for: account,
+                                                                sceneCoordinator: strongSelf.sceneCoordinator)
+                        self?.sceneCoordinator.transition(to: .account(viewModel), with: .modal)
+                    })
+                    .disposed(by: strongSelf.disposeBag)
+            })
+            .disposed(by: disposeBag)
+        
+        deleteAccountAciton = PublishSubject<Account>()
+        deleteAccountAciton
+            .subscribe(onNext: { [weak self] account in
+                self?.accountService.delete(account: account)
+                
+                do {
+                    try self?.managedObjectContextService.saveContext()
+                } catch {
+                    print("\(#file) \(#function) \(error.localizedDescription)")
+                    self?.managedObjectContextService.rollbackContext()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        selectAccountAction = PublishSubject<Account>()
+        selectAccountAction
+            .subscribe(onNext: { [weak self] account in
+                guard let strongSelf = self else { fatalError() }
+                
+                let viewModel = AccountViewModel(for: account,
+                                                 sceneCoordinator: strongSelf.sceneCoordinator)
+                self?.sceneCoordinator.transition(to: .account(viewModel), with: .modal
+                )
+            })
+            .disposed(by: disposeBag)
     }
     
-    public func account(for indexPath: IndexPath) -> Account {
-        let section = try! tableItemsSubject.value()[indexPath.section]
-        return section.items[indexPath.row]
+    private func configureProperties() {
+        isEditButtonEnabled = tableItems
+            .asDriver(onErrorJustReturn: [])
+            .map { !$0[0].items.isEmpty }
+        
+        isPlusButtonEnabled = isEditing
+            .map { !$0 }
+            .asDriver(onErrorJustReturn: false)
+        
+        isTableViewEditing = isEditing
+            .asDriver(onErrorJustReturn: false)
     }
+    
+    private func configureTableItems() {
+        tableItems = accountService.accounts
+            .map { [AccountsListSection(model: "Accounts", items: $0)] }
+    }
+    
 }

@@ -3,13 +3,12 @@
     <entity name="Account" representedClassName="Account" syncable="YES" codeGenerationType="category">
         <attribute name="currency" attributeType="String" defaultValueString="USD"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
-        <attribute name="orderPosition" attributeType="Integer 32" defaultValueString="1" usesScalarValueType="YES"/>
         <attribute name="title" optional="YES" attributeType="String" minValueString="2" maxValueString="64"/>
         <relationship name="transactions" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Transaction" inverseName="account" inverseEntity="Transaction"/>
     </entity>
     <entity name="Transaction" representedClassName="Transaction" syncable="YES" codeGenerationType="category">
-        <attribute name="amount" optional="YES" attributeType="Double" usesScalarValueType="NO"/>
-        <attribute name="convertedAmount" optional="YES" attributeType="Double" usesScalarValueType="NO"/>
+        <attribute name="amount" optional="YES" attributeType="Double" minValueString="0" usesScalarValueType="NO"/>
+        <attribute name="convertedAmount" optional="YES" attributeType="Double" minValueString="0" usesScalarValueType="NO"/>
         <attribute name="currency" optional="YES" attributeType="String"/>
         <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
@@ -17,7 +16,7 @@
         <relationship name="account" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Account" inverseName="transactions" inverseEntity="Account"/>
     </entity>
     <elements>
-        <element name="Account" positionX="162.7109375" positionY="-12.30859375" width="128" height="104"/>
+        <element name="Account" positionX="162.7109375" positionY="-12.30859375" width="128" height="89"/>
         <element name="Transaction" positionX="-63" positionY="-18" width="128" height="134"/>
     </elements>
 </model>

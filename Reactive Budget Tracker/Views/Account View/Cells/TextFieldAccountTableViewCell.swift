@@ -24,11 +24,11 @@ class TextFieldAccountTableViewCell: UITableViewCell {
         
         textField.text = account.title
         
-        textField.rx.text
-            .asDriver()
-            .drive {
-                account.title = $0
-            }
+        textField.rx.text.orEmpty
+            .skip(until: textField.rx.controlEvent(.editingDidBegin))
+            .take(until: textField.rx.controlEvent(.editingDidEnd))
+            .debounce(.milliseconds(350), scheduler: MainScheduler.instance)
+            .bind(to: account.rx.title)
             .disposed(by: disposeBag)
     }
 

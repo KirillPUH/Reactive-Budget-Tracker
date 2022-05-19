@@ -9,111 +9,39 @@ import Foundation
 import CoreData
 import RxSwift
 
-class TransactionService: TransactionServiceProtocol {    
-    private let managedObjectContext: ManagedObjectContextServiceProtocol
+class TransactionService: TransactionServiceProtocol {
     
-    private let disposebleBag: DisposeBag
+    private let managedObjectContextService: ManagedObjectContextServiceProtocol
     
-    lazy var currentAccount: BehaviorSubject<Account?> = {
-        let currentAccountUUIDObserver = UserDefaults.standard.rx.observe(String.self, "currentAccountUUID")
-            .map { _ in }
-        
-        let contextSavingObserver = managedObjectContext.context.rx.didSaveObjects()
-        
-        let subject = BehaviorSubject<Account?>(value: nil)
-        
-        Observable.of(currentAccountUUIDObserver, contextSavingObserver)
-            .merge()
-            .subscribe(onNext: { [weak self] in
-                guard let self = self else { return }
-                
-                guard let uuidString = UserDefaults.standard.string(forKey: "currentAccountUUID") else {
-                    subject.onNext(nil)
-                    return
-                }
-                
-                let predicate = NSPredicate(format: "id == %@", uuidString)
-                let fetchRequest = Account.fetchRequest()
-                
-//            ERROR: With using of predicate newly created account fetch requests returns empty array!
-//                fetchRequest.predicate = predicate
-                
-                let accounts = try! self.managedObjectContext.context.fetch(fetchRequest)
-                guard let account = accounts.first(where: { $0.id!.uuidString == uuidString }) else {
-                    subject.onNext(nil)
-                    return
-                }
-                
-                subject.onNext(account)
-            })
-            .disposed(by: disposebleBag)
-        
-        return subject
-    }()
-    
-    lazy var currentTransactions: BehaviorSubject<[Transaction]> = {
-        let subject = BehaviorSubject<[Transaction]>(value: [])
-        
-        currentAccount.asObservable()
-            .map { account in
-                if let account = account {
-                    let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-                    
-                    let transactions = account.transactions!.sortedArray(using: [sortDescriptor]) as! [Transaction]
-                    
-                    return transactions
-                } else {
-                    return []
-                }
-            }
-            .subscribe(subject)
-            .disposed(by: disposebleBag)
-        
-        return subject
-    }()
+    private let disposeBag: DisposeBag
     
     init() {
-        managedObjectContext = ManagedObjectContextService.shared
+        managedObjectContextService = ManagedObjectContextService.shared
         
-        disposebleBag = DisposeBag()
+        disposeBag = DisposeBag()
     }
     
-    func transactions(for account: Account) -> Observable<[Transaction]> {
-        let subject = PublishSubject<[Transaction]>()
+    public func transactions(for account: Account) -> Observable<[Transaction]> {
+        let transactionsObserver = account.rx.observe(\.transactions)
+        let managedObjectContextDidSaveObserver = managedObjectContextService.context.rx.didSaveObjects().startWith(Void())
         
-        managedObjectContext.context.rx.didSaveObjects()
-            .map {
-                let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
-                
-                let transactions = account.transactions?.sortedArray(using: [sortDescriptor]) as! [Transaction]
-                
-                return transactions
+        return Observable.zip(transactionsObserver,
+                                        managedObjectContextDidSaveObserver)
+            .map { transactionsSet, _ in
+                return (transactionsSet?.allObjects as? [Transaction]) ?? []
             }
-            .subscribe(subject)
-            .disposed(by: disposebleBag)
-        
-        return subject.asObservable()
     }
     
-    func delete(transaction: Transaction) -> Completable {
-        let subject = PublishSubject<Never>()
-        
-        managedObjectContext.context.delete(transaction)
-        
-        subject.onCompleted()
-        
-        return subject.asCompletable()
+    public func delete(transaction: Transaction) {
+        managedObjectContextService.context.delete(transaction)
     }
     
-    func createTransaction(in account: Account) -> Single<Transaction> {
-        return Single<Transaction>.create { [unowned self] single in
-            let transaction = Transaction(context: self.managedObjectContext.context)
-            transaction.account = account
-            transaction.currency = account.currency
-            
-            single(.success(transaction))
-            
-            return Disposables.create { }
-        }
+    @discardableResult
+    public func createTransaction(in account: Account) -> Single<Transaction> {
+        let transaction = Transaction(context: managedObjectContextService.context)
+        transaction.account = account
+        transaction.currency = account.currency
+        
+        return Single<Transaction>.just(transaction)
     }
 }

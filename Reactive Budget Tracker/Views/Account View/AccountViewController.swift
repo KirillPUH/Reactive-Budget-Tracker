@@ -12,72 +12,22 @@ import RxDataSources
 
 class AccountViewController: UIViewController, BindableProtocol {
 
-    var viewModel: AccountViewModel!
+    public var viewModel: AccountViewModel!
     
     @IBOutlet var doneButton: UIBarButtonItem!
     @IBOutlet var cancelButton: UIBarButtonItem!
     @IBOutlet var accountTableView: UITableView!
     
-    var disposeBag: DisposeBag!
+    private var disposeBag: DisposeBag!
     
     private var dataSource: RxTableViewSectionedReloadDataSource<AccountCellModel>!
     
-    func bindViewModel() {
+    internal func bindViewModel() {
         disposeBag = DisposeBag()
         
-        doneButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel.onDone()
-            }
-            .disposed(by: self.disposeBag)
-        
-        cancelButton.rx.tap
-            .bind { [weak self] in
-                self?.viewModel.onCancel()
-            }
-            .disposed(by: self.disposeBag)
-        
-        dataSource = RxTableViewSectionedReloadDataSource<AccountCellModel>(configureCell: { dataSource, tableView, indexPath, cellType in
-            switch cellType {
-            case .title:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: cellType.identifier) as? TextFieldAccountTableViewCell else {
-                    fatalError()
-                }
-                
-                cell.configure(title: "Title", account: self.viewModel.account)
-                
-                return cell
-            case .currency:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: cellType.identifier) as? CurrencyAccountTableViewCell else {
-                    fatalError()
-                }
-                
-                cell.configure(title: "Currency", account: self.viewModel.account)
-                
-                return cell
-            }
-        })
-        
-        viewModel.tableItems
-            .bind(to: accountTableView.rx.items(dataSource: dataSource))
-            .disposed(by: disposeBag)
-        
-        let firstObserver = viewModel.account.rx.observe(\.title)
-        firstObserver
-            .subscribe(onNext: { [weak self] in
-                if let title = $0, title.isEmpty {
-                    self?.doneButton.isEnabled = false
-                } else {
-                    self?.doneButton.isEnabled = true
-                }
-            })
-            .disposed(by: disposeBag)
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        accountTableView.delegate = self
+        bindActions()
+        bindProperties()
+        bindDataSource()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,14 +40,40 @@ class AccountViewController: UIViewController, BindableProtocol {
     
 }
 
-extension AccountViewController: UITableViewDelegate {
+extension AccountViewController {
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if AccountTableViewCellType.allCases[indexPath.row] == .currency {
-            let viewModel = CurrenciesViewModel(sceneCoordinator: self.viewModel.sceneCoordinator,
-                                                account: self.viewModel.account)
-            viewModel.sceneCoordinator.transition(to: .currencies(viewModel), with: .push)
-        }
+    private func bindActions() {
+        doneButton.rx.tap
+            .bind(to: viewModel.doneAction)
+            .disposed(by: disposeBag)
+        
+        cancelButton.rx.tap
+            .bind(to: viewModel.cancelAction)
+            .disposed(by: disposeBag)
+        
+        accountTableView.rx.itemSelected
+            .take(while: { AccountTableViewCellType(rawValue: $0.row) == .currency })
+            .map { _ in }
+            .bind(to: viewModel.chooseCurrencyAction)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindProperties() {
+        viewModel.isDoneButtonEnabled
+            .drive(doneButton.rx.isEnabled)
+            .disposed(by: disposeBag)
+    }
+    
+    private func bindDataSource() {
+        dataSource = RxTableViewSectionedReloadDataSource<AccountCellModel>(configureCell: { [weak self] dataSource, tableView, indexPath, cellType in
+            guard let strongSelf = self else { fatalError() }
+            
+            return cellType.configureCell(for: tableView, account: strongSelf.viewModel.account)
+        })
+        
+        viewModel.tableItems
+            .bind(to: accountTableView.rx.items(dataSource: dataSource))
+            .disposed(by: disposeBag)
     }
     
 }

@@ -7,103 +7,151 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import RxDataSources
 
-typealias TransactionsListModel = AnimatableSectionModel<String, Transaction>
+typealias TransactionsListSection = AnimatableSectionModel<String, Transaction>
 
-enum MainViewModelError: Error {
-    case accountIsNotSet
-}
-
-struct MainViewModel {
-    private var disposeBag: DisposeBag
+final class MainViewModel {
     
-    public var sceneCoordinator: SceneCoordinatorProtocol
-    
-    public let transactionService: TransactionServiceProtocol
+    private let sceneCoordinator: SceneCoordinatorProtocol
+    private let transactionService: TransactionServiceProtocol
+    private let accountService: AccountServiceProtocol
     private let managedObjectContrextService: ManagedObjectContextServiceProtocol
     
-    public var tableItemsSubject: BehaviorSubject<[TransactionsListModel]>
+    // Rx
+    private let disposeBag: DisposeBag
+    
+    // Inputs
+    private(set) var createTransactionAction: PublishSubject<Void>!
+    private(set) var deleteTransactionAction: PublishSubject<Transaction>!
+    private(set) var selectTransactionAction: PublishSubject<Transaction>!
+    
+    // Outputs
+    private(set) var isPlusButtonEnabled: Driver<Bool>!
+    private(set) var tableItems: Observable<[TransactionsListSection]>!
     
     init(sceneCoordinator: SceneCoordinatorProtocol) {
-        self.sceneCoordinator = sceneCoordinator
-        
         transactionService = TransactionService()
+        accountService = AccountService()
         managedObjectContrextService = ManagedObjectContextService.shared
+        
+        self.sceneCoordinator = sceneCoordinator
         
         disposeBag = DisposeBag()
         
-        tableItemsSubject = BehaviorSubject<[TransactionsListModel]>(value: [TransactionsListModel]())
+        configureActions()
+        configureProperties()
+        configureTableItems()
+    }
+    
+}
+
+extension MainViewModel {
+    
+    private func configureActions() {
+        createTransactionAction = PublishSubject<Void>()
+        createTransactionAction
+            .subscribe(onNext: { [weak self] in
+                guard let strongSelf = self else { fatalError() }
+                
+                guard let selectedAccount = self?.accountService.selectedAccount else { return }
+                
+                self?.transactionService.createTransaction(in: selectedAccount)
+                    .subscribe(onSuccess: { transaction in
+                        let viewModel = TransactionViewModel(for: transaction,
+                                                                        sceneCoordinator: strongSelf.sceneCoordinator)
+                        self?.sceneCoordinator.transition(to: .transaction(viewModel), with: .modal)
+                    })
+                    .disposed(by: strongSelf.disposeBag)
+            })
+            .disposed(by: disposeBag)
         
-        transactionService.currentTransactions
-            .map { transactions -> [TransactionsListModel] in
-                var sortedTransactions = [String : [Transaction]]()
+        deleteTransactionAction = PublishSubject<Transaction>()
+        deleteTransactionAction
+            .subscribe(onNext: { [weak self] transaction in
+                self?.transactionService.delete(transaction: transaction)
                 
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateStyle = .medium
-                
-                for transaction in transactions {
-                    if sortedTransactions[dateFormatter.string(from: transaction.date!)] == nil {
-                        sortedTransactions[dateFormatter.string(from: transaction.date!)] = [transaction]
-                    } else {
-                        sortedTransactions[dateFormatter.string(from: transaction.date!)]!.append(transaction)
-                    }
+                do {
+                    try self?.managedObjectContrextService.saveContext()
+                } catch {
+                    print("\(#file) \(#function) \(error.localizedDescription)")
+                    self?.managedObjectContrextService.rollbackContext()
                 }
-                
-                var transactionListModels = [TransactionsListModel]()
-                for sortedTransaction in sortedTransactions {
-                    transactionListModels.append(TransactionsListModel(model: sortedTransaction.key, items: sortedTransaction.value))
-                }
-                
-                return transactionListModels
-            }
-            .subscribe(tableItemsSubject)
+            })
+            .disposed(by: disposeBag)
+        
+        selectTransactionAction = PublishSubject<Transaction>()
+        selectTransactionAction
+            .subscribe(onNext: { [weak self] transaction in
+                guard let strongSelf = self else { fatalError() }
+            
+                let viewModel = TransactionViewModel(for: transaction,
+                                                     sceneCoordinator: strongSelf.sceneCoordinator)
+                self?.sceneCoordinator.transition(to: .transaction(viewModel), with: .modal)
+            })
             .disposed(by: disposeBag)
     }
     
-    @discardableResult
-    public func onCreateTransaction() -> Completable {
-        let subject = PublishSubject<Never>()
-        
-        do {
-            guard let currentAccount = try transactionService.currentAccount.value() else {
-                throw MainViewModelError.accountIsNotSet
-            }
+    private func configureProperties() {
+        isPlusButtonEnabled = accountService.accounts
+            .map { $0.count != 0 }
+            .asDriver(onErrorJustReturn: false)
+    }
+    
+    private func configureTableItems() {
+        tableItems = Observable<[TransactionsListSection]>.create { [weak self] observable in
+            guard let strongSelf = self else { fatalError() }
             
-            transactionService.createTransaction(in: currentAccount)
-                .subscribe(onSuccess: { transaction in
-                    let transactionViewModel = TransactionViewModel(for: transaction, sceneCoordinator: sceneCoordinator)
+            self?.accountService.selectedAccountObserver
+                .subscribe(onNext: { [weak self] account in
+                    guard let account = account else {
+                        observable.onNext([])
+                        return
+                    }
                     
-                    sceneCoordinator.transition(to: .transaction(transactionViewModel), with: .modal)
-                    
-                    subject.onCompleted()
-                }, onFailure: {  subject.onError($0) })
-                .disposed(by: disposeBag)
-        } catch {
-            subject.onError(error)
+                    self?.transactionService.transactions(for: account)
+                        .map { $0.sorted { $0.date! > $1.date! } }
+                        .subscribe(onNext: { transactions in
+                            let sortedTransactions = transactions.sortedByDate()
+                            
+                            let transactionListSections = sortedTransactions.map { sectionTitle, transactions in
+                                TransactionsListSection(model: sectionTitle, items: transactions)
+                            }
+                            
+                            observable.onNext(transactionListSections)
+                        })
+                        .disposed(by: strongSelf.disposeBag)
+                })
+                .disposed(by: strongSelf.disposeBag)
+            
+            return Disposables.create { }
+        }
+    }
+        
+}
+
+fileprivate extension Collection where Element == Transaction {
+    
+    func sortedByDate() -> [(String, [Transaction])] {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "d MMMM"
+        
+        var sortedTransactions = [(sectionTitle: String, transactions: [Transaction])]()
+        
+        var lastDateString = ""
+        for transaction in self {
+            let dateString = dateFormatter.string(from: transaction.date!)
+            
+            if lastDateString != dateString {
+                lastDateString = dateString
+                sortedTransactions.append((dateString, [transaction]))
+            } else {
+                sortedTransactions[sortedTransactions.count - 1].transactions.append(transaction)
+            }
         }
         
-        return subject.asCompletable()
+        return sortedTransactions
     }
     
-    @discardableResult
-    public func onDeleteTransaction(at indexPath: IndexPath) -> Completable {
-        let subject = PublishSubject<Never>()
-        
-        let section = (try! tableItemsSubject.value())[indexPath.section]
-        let transaction = section.items[indexPath.row]
-        
-        transactionService.delete(transaction: transaction)
-        
-        managedObjectContrextService.saveContext()
-            .subscribe { subject.onCompleted() } onError: { subject.onError($0) }
-            .disposed(by: disposeBag)
-        
-        return subject.asCompletable()
-    }
-    
-    public func transaction(for indexPath: IndexPath) -> Transaction {
-        let section = try! tableItemsSubject.value()[indexPath.section]
-        return section.items[indexPath.row]
-    }
 }

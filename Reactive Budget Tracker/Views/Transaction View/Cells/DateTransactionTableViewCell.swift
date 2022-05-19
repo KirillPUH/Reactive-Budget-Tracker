@@ -20,15 +20,14 @@ class DateTransactionTableViewCell: UITableViewCell {
     func configure(title: String, transaction: Transaction) {
         disposeBag = DisposeBag()
         
+        titleLabel.text = title
+        
         datePicker.date = transaction.date ?? Date()
         
-        titleLabel.text = title
-        datePicker.rx.date
-            .debounce(.milliseconds(50), scheduler: MainScheduler.instance)
-            .subscribe {
-                transaction.date = $0
-            }
+        datePicker.rx.controlEvent(.editingDidEnd)
+            .withLatestFrom(datePicker.rx.date)
+            .bind(to: transaction.rx.date)
             .disposed(by: disposeBag)
     }
-
+    
 }

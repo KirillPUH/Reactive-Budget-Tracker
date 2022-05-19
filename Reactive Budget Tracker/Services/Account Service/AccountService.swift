@@ -10,113 +10,153 @@ import UIKit
 import CoreData
 import RxSwift
 
-enum AccountServiceError: Error {
-    case accountDidNotFound
-    case accountFetchError(Error)
-    case currentAccountUUIDDoesNotSet
+fileprivate extension Collection where Element == Account {
+    func index(of element: Element) -> Int? {
+        for index in self.indices {
+            if self[index] == element {
+                return self.distance(from: self.startIndex, to: index) - 1
+            }
+        }
+        return nil
+    }
 }
 
 class AccountService: AccountServiceProtocol {
-    private let managedObjectContext: ManagedObjectContextServiceProtocol
+    
+    private let managedObjectContextService: ManagedObjectContextServiceProtocol
     
     private let disposeBag: DisposeBag
     
-    var accounts: BehaviorSubject<[Account]>
-    
-    init() {
-        self.managedObjectContext = ManagedObjectContextService.shared
-        
-        self.disposeBag = DisposeBag()
-        
-        accounts = BehaviorSubject<[Account]>(value: [Account]())
-            
-        managedObjectContext.context.rx.didSaveObjects()
-            .startWith(Void())
-            .map { [weak self] in
-                guard let self = self else { return [Account]() }
-                
-                do {
-                    return try self.fetchAccounts()
-                } catch {
-                    throw error
-                }
+    public lazy var accounts: Observable<[Account]> = {
+        Observable<[Account]>.create { [weak self] observable in
+            guard let strongSelf = self else {
+                print("Memory leak!")
+                return Disposables.create { }
             }
-            .subscribe(accounts)
-            .disposed(by: disposeBag)
-    }
+            
+            self?.managedObjectContextService.context.rx.didSaveObjects()
+                .startWith(Void())
+                .subscribe(onNext: {
+                    let fetchRequest = Account.fetchRequest()
+                    let sortDesriptor = NSSortDescriptor(key: "title", ascending: true)
+                    fetchRequest.sortDescriptors = [sortDesriptor]
+                    
+                    do {
+                        let accounts = try strongSelf.managedObjectContextService.context.fetch(fetchRequest)
+                        observable.onNext(accounts)
+                    } catch {
+                        observable.onError(AccountServiceError.accountFetchError(error))
+                    }
+                })
+                .disposed(by: strongSelf.disposeBag)
+            
+            return Disposables.create { }
+        }
+        .share(replay: 1, scope: .forever)
+    }()
     
-    private func fetchAccounts() throws -> [Account] {
+    public lazy var selectedAccountObserver: Observable<Account?> = {
+        Observable<Account?>.create { [weak self] observable in
+            guard let strongSelf = self else {
+                print("Memory leak!")
+                return Disposables.create { }
+            }
+            
+            UserDefaults.standard.rx.observe(String.self, "currentAccountUUID")
+                .subscribe(onNext: { uuidString in
+                    guard let uuidString = uuidString else {
+                        observable.onNext(nil)
+                        return
+                    }
+                    
+                    let fetchRequest = Account.fetchRequest()
+                    
+                    do {
+                        let accounts = try strongSelf.managedObjectContextService.context.fetch(fetchRequest)
+
+                        guard let account = accounts.first(where: { $0.id!.uuidString == uuidString }) else {
+                            observable.onNext(nil)
+                            return
+                        }
+
+                        observable.onNext(account)
+                    } catch {
+                        observable.onNext(nil)
+                    }
+                })
+                .disposed(by: strongSelf.disposeBag)
+            
+            return Disposables.create { }
+        }
+        .share(replay: 1, scope: .forever)
+    }()
+    
+    public var selectedAccount: Account? {
+        guard let uuidString = UserDefaults.standard.string(forKey: "currentAccountUUID") else {
+            return nil
+        }
+        
         let fetchRequest = Account.fetchRequest()
-        let sortDesriptor = NSSortDescriptor(key: "orderPosition", ascending: true)
-        fetchRequest.sortDescriptors = [sortDesriptor]
         
         do {
-            return try managedObjectContext.context.fetch(fetchRequest)
+            let accounts = try managedObjectContextService.context.fetch(fetchRequest)
+
+            guard let account = accounts.first(where: { $0.id!.uuidString == uuidString }) else {
+                return nil
+            }
+
+            return account
         } catch {
-            throw error
+            return nil
         }
     }
     
-    @discardableResult
-    public func changeCurrentAccount(to account: Account) -> Completable {
-        let subject = PublishSubject<Never>()
+    init() {
+        managedObjectContextService = ManagedObjectContextService.shared
         
+        disposeBag = DisposeBag()
+    }
+    
+    @discardableResult
+    public func changeAccount(to account: Account) -> Completable {
         UserDefaults.standard.set(account.id!.uuidString, forKey: "currentAccountUUID")
-            
-        return subject.asCompletable()
+        
+        return Completable.empty()
     }
     
     @discardableResult
     public func createAccount() -> Single<Account> {
-        Observable<Account>.create { [unowned self] observer in
-            let account = Account(context: self.managedObjectContext.context)
-            account.orderPosition = try! Int32(accounts.value().count + 1)
-            
-            observer.onNext(account)
-            
-            return Disposables.create { }
-        }
-        .take(1)
-        .asSingle()
-    }
-    
-    @discardableResult
-    public func update(account: Account, title: String?) -> Completable {
-        let subject = PublishSubject<Void>()
+        let account = Account(context: self.managedObjectContextService.context)
         
-        if let title = title {
-            account.title = title
-        }
-        
-        subject.onCompleted()
-        
-        return subject.asObservable()
-            .take(1)
-            .ignoreElements()
-            .asCompletable()
+        return Single.just(account)
     }
     
     @discardableResult
     public func delete(account: Account) -> Completable {
-        let subject = PublishSubject<Never>()
+        var accounts = [Account]()
         
-        let accounts = try! accounts.value()
-        for index in (Int(account.orderPosition)..<accounts.count) {
-            accounts[index].orderPosition -= 1
+        _ = self.accounts
+            .take(1)
+            .subscribe(onNext: {
+                accounts = $0
+            })
+        
+        guard let currentAccountIndex = accounts.index(of: account) else {
+            return Completable.error(AccountServiceError.accountDidNotFound)
         }
         
+        var nextAccount: Account?
         if accounts.count == 1 {
-            UserDefaults.standard.set(nil, forKey: "currentAccountUUID")
+            nextAccount = nil
         } else if account == accounts.last! {
-            UserDefaults.standard.set(accounts[Int(account.orderPosition) - 2].id!.uuidString, forKey: "currentAccountUUID")
+            nextAccount = accounts[currentAccountIndex - 1]
         } else {
-            UserDefaults.standard.set(accounts[Int(account.orderPosition)].id!.uuidString, forKey: "currentAccountUUID")
+            nextAccount = accounts[currentAccountIndex + 1]
         }
         
-        managedObjectContext.context.delete(account)
+        UserDefaults.standard.set(nextAccount?.id?.uuidString, forKey: "currentAccountUUID")
+        managedObjectContextService.context.delete(account)
         
-        subject.onCompleted()
-        
-        return subject.asCompletable()
+        return Completable.empty()
     }
 }

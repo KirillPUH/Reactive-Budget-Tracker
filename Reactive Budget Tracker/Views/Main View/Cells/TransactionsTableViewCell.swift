@@ -6,9 +6,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class TransactionsTableViewCell: UITableViewCell {
     static let identifier = "TransactionsTableViewCell"
+    
+    private var disposeBag: DisposeBag!
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var convertedAmountLabel: UILabel!
@@ -30,25 +34,58 @@ class TransactionsTableViewCell: UITableViewCell {
     }()
     
     func configure(_ transaction: Transaction) {
-        titleLabel.text = transaction.title
+        disposeBag = DisposeBag()
         
-        guard let amount = transaction.amount,
-              let transactionCurrency = transaction.currency,
-              let date = transaction.date else {
-            return
-        }
+        transaction.rx.observe(\.title)
+            .asDriver(onErrorJustReturn: nil)
+            .map { title in
+                return title ?? "Title"
+            }
+            .drive(titleLabel.rx.text)
+            .disposed(by: disposeBag)
         
-        if let convertedAmount = transaction.convertedAmount,
-           let accountCurrency = transaction.account?.currency {
-            convertedAmountLabel.text = "\(Self.amountFormatter.string(from: convertedAmount)!) \(accountCurrency)"
-            amountLabel.isHidden = false
-            amountLabel.text = "\(Self.amountFormatter.string(from: amount)!) \(transactionCurrency)"
-        } else {
-            convertedAmountLabel.text = "\(Self.amountFormatter.string(from: amount)!) \(transactionCurrency)"
-            amountLabel.isHidden = true
-        }
+        let amountObserver = transaction.rx.observe(\.amount)
+            .map { amount in
+                return amount ?? 0
+            }
+        let convertedAmountObserver = transaction.rx.observe(\.convertedAmount)
+        let transactionCurrencyObserver = transaction.rx.observe(\.currency)
+            .map { transactionCurrency in
+                return transactionCurrency ?? Currency.usd.rawValue
+            }
+        let accountCurrencyObserver = transaction.account!.rx.observe(\.currency)
+            .map { accountCurrency in
+                return accountCurrency ?? Currency.usd.rawValue
+            }
+
+        Observable.combineLatest(amountObserver,
+                                 transactionCurrencyObserver,
+                                 convertedAmountObserver,
+                                 accountCurrencyObserver)
+        .subscribe(onNext: { [weak self] amount, transactionCurrency, convertedAmount, accountCurrency in
+            if let convertedAmount = convertedAmount {
+                self?.convertedAmountLabel.text = "\(Self.amountFormatter.string(from: convertedAmount)!) \(accountCurrency)"
+                self?.amountLabel.isHidden = false
+                self?.amountLabel.text = "\(Self.amountFormatter.string(from: amount)!) \(transactionCurrency)"
+            } else {
+                self?.convertedAmountLabel.text = "\(Self.amountFormatter.string(from: amount)!) \(transactionCurrency)"
+                self?.amountLabel.isHidden = true
+            }
+        })
+        .disposed(by: disposeBag)
         
-        dateLabel.text = Self.dateFormatter.string(from: date)
+        transaction.rx.observe(\.date)
+            .asDriver(onErrorJustReturn: nil)
+            .map { date in
+                return Self.dateFormatter.string(from: date ?? Date())
+            }
+            .drive(dateLabel.rx.text)
+            .disposed(by: disposeBag)
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
+    }
 }

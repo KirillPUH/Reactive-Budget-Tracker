@@ -13,11 +13,9 @@ import RxSwift
 protocol ManagedObjectContextServiceProtocol {
     var context: NSManagedObjectContext { get }
     
-    @discardableResult
-    func saveContext() -> Completable
+    func saveContext() throws
     
-    @discardableResult
-    func rollbackContext() -> Completable
+    func rollbackContext()
 }
 
 extension ManagedObjectContextServiceProtocol {

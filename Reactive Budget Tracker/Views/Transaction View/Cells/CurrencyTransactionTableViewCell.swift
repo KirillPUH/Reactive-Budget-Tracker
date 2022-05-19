@@ -16,28 +16,17 @@ class CurrencyTransactionTableViewCell: UITableViewCell {
     
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var currencyLabel: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
 
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-    
     func configure(title: String, transaction: Transaction) {
         disposeBag = DisposeBag()
         
         currencyLabel.text = transaction.currency
         
         titleLabel.text = title
+        
         transaction.rx.observe(\.currency)
-            .subscribe(onNext: { [weak self] in
-                self?.currencyLabel.text = $0
-            })
+            .bind(to: currencyLabel.rx.text)
             .disposed(by: disposeBag)
     }
+    
 }

@@ -7,62 +7,103 @@
 
 import Foundation
 import RxSwift
+import RxCocoa
 import RxDataSources
 
 typealias TransactionCellModel = SectionModel<String, TransactionTableViewCellType>
 
-struct TransactionViewModel {
-    public var sceneCoordinator: SceneCoordinatorProtocol
+final class TransactionViewModel {
     
+    public let sceneCoordinator: SceneCoordinatorProtocol
     public let managedObjectContextService: ManagedObjectContextService
     
+    public let transaction: Transaction
+    
+    // Rx
     private let disposeBag: DisposeBag
     
-    public let transaction: Transaction
-    public var tableItems: Observable<[TransactionCellModel]>
+    // Inputs
+    private(set) var doneAction: PublishSubject<Void>!
+    private(set) var cancelAction: PublishSubject<Void>!
+    private(set) var chooseCurrencyAction: PublishSubject<Void>!
+    
+    // Outputs
+    private(set) var isDoneButtonEnabled: Driver<Bool>!
+    private(set) var tableItems: Observable<[TransactionCellModel]>!
     
     init(for transaction: Transaction, sceneCoordinator: SceneCoordinatorProtocol) {
-        self.sceneCoordinator = sceneCoordinator
-        
         managedObjectContextService = ManagedObjectContextService.shared
         
-        disposeBag = DisposeBag()
+        self.sceneCoordinator = sceneCoordinator
         
         self.transaction = transaction
         
-        tableItems = Observable.create {
-            $0.onNext([TransactionCellModel(model: "Transaction",
-                                            items: TransactionTableViewCellType.allCases)])
-            return Disposables.create { }
+        disposeBag = DisposeBag()
+        
+        configureActions()
+        configureProperties()
+        configureTableItems()
+    }
+}
+
+extension TransactionViewModel {
+    
+    func configureActions() {
+        doneAction = PublishSubject<Void>()
+        doneAction
+            .subscribe(onNext: { [weak self] in
+                do {
+                    try self?.managedObjectContextService.saveContext()
+                    self?.sceneCoordinator.pop(animated: true)
+                } catch {
+                    print("\(#file) \(#function) \(error.localizedDescription)")
+                    self?.managedObjectContextService.rollbackContext()
+                    self?.sceneCoordinator.pop(animated: true)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        cancelAction = PublishSubject<Void>()
+        cancelAction
+            .subscribe(onNext: { [weak self] in
+                self?.managedObjectContextService.rollbackContext()
+                self?.sceneCoordinator.pop(animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        chooseCurrencyAction = PublishSubject<Void>()
+        chooseCurrencyAction
+            .subscribe(onNext: { [weak self] in
+                guard let strongSelf = self else { fatalError() }
+                
+                let viewModel = CurrenciesViewModel(sceneCoordinator: strongSelf.sceneCoordinator,
+                                                    transaction: strongSelf.transaction)
+                viewModel.sceneCoordinator.transition(to: .currencies(viewModel), with: .push)
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    func configureProperties() {
+        let transactionTitleObserver = transaction.rx.observe(\.title).asDriver(onErrorJustReturn: nil)
+        let transactionAmountObserver = transaction.rx.observe(\.amount).asDriver(onErrorJustReturn: nil)
+        
+        isDoneButtonEnabled = Driver<Bool>.combineLatest(
+            transactionTitleObserver,
+            transactionAmountObserver
+        ){ title, amount in
+            if title == nil || title == "" || amount == nil {
+                return false
+            }
+            return true
         }
     }
     
-    @discardableResult
-    public func onDone() -> Completable {
-        let subject = PublishSubject<Never>()
-        
-        managedObjectContextService.saveContext()
-            .subscribe(onError: { subject.onError($0) })
-            .disposed(by: disposeBag)
-        
-        sceneCoordinator.pop(animated: true)
-            .subscribe(onError: { subject.onError($0) })
-            .disposed(by: disposeBag)
-        
-        subject.onCompleted()
-        
-        return subject.asCompletable()
+    func configureTableItems() {
+        tableItems = Observable.create { observable in
+            observable.onNext([TransactionCellModel(model: "Transactions",
+                                                    items: TransactionTableViewCellType.allCases)])
+            return Disposables.create()
+        }
     }
-    
-    @discardableResult
-    public func onCancel() -> Completable {
-        let subject = PublishSubject<Never>()
-        
-        managedObjectContextService.rollbackContext()
-        sceneCoordinator.pop(animated: true)
-        
-        subject.onCompleted()
-        
-        return subject.asCompletable()
-    }
+
 }

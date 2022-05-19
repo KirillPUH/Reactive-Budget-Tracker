@@ -24,9 +24,7 @@ class CurrencyAccountTableViewCell: UITableViewCell {
         titleLabel.text = title
         
         account.rx.observe(\.currency)
-            .subscribe(onNext: { [weak self] in
-                self?.currencyLabel.text = $0
-            })
+            .bind(to: currencyLabel.rx.text)
             .disposed(by: disposeBag)
     }
     

@@ -9,14 +9,10 @@ import Foundation
 import RxSwift
 
 protocol TransactionServiceProtocol {
-    var currentAccount: BehaviorSubject<Account?> { get }
-    
-    var currentTransactions: BehaviorSubject<[Transaction]> { get }
-    
     func transactions(for account: Account) -> Observable<[Transaction]>
     
+    @discardableResult
     func createTransaction(in account: Account) -> Single<Transaction>
     
-    @discardableResult
-    func delete(transaction: Transaction) -> Completable
+    func delete(transaction: Transaction)
 }

@@ -12,29 +12,11 @@ import RxSwift
 class ManagedObjectContextService: ManagedObjectContextServiceProtocol {
     static public let shared = ManagedObjectContextService()
     
-    @discardableResult
-    func saveContext() -> Completable {
-        let subject = PublishSubject<Never>()
-        
-        do {
-
-            try context.save()
-            subject.onCompleted()
-        } catch {
-            subject.onError(error)
-        }
-    
-        return subject.asCompletable()
+    func saveContext() throws {
+        try context.save()
     }
     
-    @discardableResult
-    func rollbackContext() -> Completable {
-        let subject = PublishSubject<Never>()
-        
+    func rollbackContext() {
         context.rollback()
-        
-        subject.onCompleted()
-    
-        return subject.asCompletable()
     }
 }
