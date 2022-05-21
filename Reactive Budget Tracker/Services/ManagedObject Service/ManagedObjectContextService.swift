@@ -7,16 +7,31 @@
 
 import Foundation
 import UIKit
+import CoreData
 import RxSwift
 
-class ManagedObjectContextService: ManagedObjectContextServiceProtocol {
-    static public let shared = ManagedObjectContextService()
+class ManagedObjectContextService: ManagedObjectContextServiceProtocol {    
+    public let managedObjectContext: NSManagedObjectContext
     
-    func saveContext() throws {
-        try context.save()
+    init(managedObjectContext: NSManagedObjectContext) {
+        self.managedObjectContext = managedObjectContext
     }
     
-    func rollbackContext() {
-        context.rollback()
+    public func saveContext() throws {
+        if managedObjectContext.hasChanges {
+            try managedObjectContext.save()
+        }
+    }
+    
+    public func rollbackContext() {
+        managedObjectContext.rollback()
+    }
+    
+    public func fetch<T>(with fetchRequest: NSFetchRequest<T>) throws -> [T] where T: NSFetchRequestResult {
+        return try managedObjectContext.fetch(fetchRequest)
+    }
+    
+    public func delete(_ object: NSManagedObject) {
+        managedObjectContext.delete(object)
     }
 }

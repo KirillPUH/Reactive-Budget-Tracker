@@ -1,17 +1,17 @@
 platform :ios, '14.0'
 
 target 'Reactive Budget Tracker' do
-
+    use_frameworks!
+  
     pod 'RxSwift'
     pod 'RxCocoa'
     pod 'RxDataSources'
 
   target 'Reactive Budget TrackerTests' do
+    use_frameworks!
+    
     pod 'RxBlocking'
     pod 'RxTest'
-  end
-
-  target 'Reactive Budget TrackerUITests' do
   end
 
 end

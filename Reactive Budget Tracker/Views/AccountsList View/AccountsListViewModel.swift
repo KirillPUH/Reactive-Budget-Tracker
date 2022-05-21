@@ -36,11 +36,11 @@ class AccountsListViewModel {
     
     private var isEditing: BehaviorSubject<Bool>!
     
-    init(sceneCoordinator: SceneCoordinatorProtocol) {
+    init(sceneCoordinator: SceneCoordinatorProtocol, managedObjectContextService: ManagedObjectContextServiceProtocol) {
+        self.managedObjectContextService = managedObjectContextService
         self.sceneCoordinator = sceneCoordinator
         
-        accountService = AccountService()
-        managedObjectContextService = ManagedObjectContextService.shared
+        accountService = AccountService(managedObjectContextService: managedObjectContextService)
         
         disposeBag = DisposeBag()
         
@@ -75,22 +75,20 @@ extension AccountsListViewModel {
             .subscribe(onNext: { [weak self] in
                 guard let strongSelf = self else { fatalError() }
                 
-                self?.accountService.createAccount()
-                    .subscribe(onSuccess: { account in
-                        let viewModel = AccountViewModel(for: account,
-                                                                sceneCoordinator: strongSelf.sceneCoordinator)
-                        self?.sceneCoordinator.transition(to: .account(viewModel), with: .modal)
-                    })
-                    .disposed(by: strongSelf.disposeBag)
+                if let account = self?.accountService.createAccount() {
+                    let viewModel = AccountViewModel(for: account,
+                                                     sceneCoordinator: strongSelf.sceneCoordinator,
+                                                     managedObjectContextService: strongSelf.managedObjectContextService)
+                    self?.sceneCoordinator.transition(to: .account(viewModel), with: .modal)
+                }
             })
             .disposed(by: disposeBag)
         
         deleteAccountAciton = PublishSubject<Account>()
         deleteAccountAciton
             .subscribe(onNext: { [weak self] account in
-                self?.accountService.delete(account: account)
-                
                 do {
+                    try self?.accountService.delete(account: account)
                     try self?.managedObjectContextService.saveContext()
                 } catch {
                     print("\(#file) \(#function) \(error.localizedDescription)")
@@ -105,7 +103,8 @@ extension AccountsListViewModel {
                 guard let strongSelf = self else { fatalError() }
                 
                 let viewModel = AccountViewModel(for: account,
-                                                 sceneCoordinator: strongSelf.sceneCoordinator)
+                                                 sceneCoordinator: strongSelf.sceneCoordinator,
+                                                 managedObjectContextService: strongSelf.managedObjectContextService)
                 self?.sceneCoordinator.transition(to: .account(viewModel), with: .modal
                 )
             })
@@ -126,7 +125,7 @@ extension AccountsListViewModel {
     }
     
     private func configureTableItems() {
-        tableItems = accountService.accounts
+        tableItems = accountService.accountsObserver
             .map { [AccountsListSection(model: "Accounts", items: $0)] }
     }
     

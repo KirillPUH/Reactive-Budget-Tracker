@@ -33,10 +33,10 @@ class AccountViewModel {
     private(set) var tableItems: Observable<[AccountCellModel]>!
     private(set) var isDoneButtonEnabled: Driver<Bool>!
     
-    init(for account: Account, sceneCoordinator: SceneCoordinatorProtocol) {
+    init(for account: Account, sceneCoordinator: SceneCoordinatorProtocol, managedObjectContextService: ManagedObjectContextServiceProtocol) {
         self.sceneCoordinator = sceneCoordinator
-        managedObjectContextService = ManagedObjectContextService.shared
-        accountService = AccountService()
+        self.managedObjectContextService = managedObjectContextService
+        accountService = AccountService(managedObjectContextService: managedObjectContextService)
         
         self.account = account
         

@@ -15,15 +15,17 @@ class TransactionService: TransactionServiceProtocol {
     
     private let disposeBag: DisposeBag
     
-    init() {
-        managedObjectContextService = ManagedObjectContextService.shared
+    init(managedObjectContextService: ManagedObjectContextServiceProtocol) {
+        self.managedObjectContextService = managedObjectContextService
         
         disposeBag = DisposeBag()
     }
     
     public func transactions(for account: Account) -> Observable<[Transaction]> {
         let transactionsObserver = account.rx.observe(\.transactions)
-        let managedObjectContextDidSaveObserver = managedObjectContextService.context.rx.didSaveObjects().startWith(Void())
+        let managedObjectContextDidSaveObserver = managedObjectContextService.managedObjectContext.rx
+            .didSaveObjects()
+            .startWith(Void())
         
         return Observable.zip(transactionsObserver,
                                         managedObjectContextDidSaveObserver)
@@ -33,15 +35,18 @@ class TransactionService: TransactionServiceProtocol {
     }
     
     public func delete(transaction: Transaction) {
-        managedObjectContextService.context.delete(transaction)
+        let account = transaction.account
+        
+        account?.removeFromTransactions(transaction)
+        
+        managedObjectContextService.delete(transaction)
     }
     
     @discardableResult
-    public func createTransaction(in account: Account) -> Single<Transaction> {
-        let transaction = Transaction(context: managedObjectContextService.context)
-        transaction.account = account
-        transaction.currency = account.currency
+    public func createTransaction(in account: Account) -> Transaction {
+        let transaction = Transaction(context: managedObjectContextService.managedObjectContext)
+        account.addToTransactions(transaction)
         
-        return Single<Transaction>.just(transaction)
+        return transaction
     }
 }

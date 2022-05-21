@@ -15,7 +15,7 @@ typealias TransactionCellModel = SectionModel<String, TransactionTableViewCellTy
 final class TransactionViewModel {
     
     public let sceneCoordinator: SceneCoordinatorProtocol
-    public let managedObjectContextService: ManagedObjectContextService
+    public let managedObjectContextService: ManagedObjectContextServiceProtocol
     
     public let transaction: Transaction
     
@@ -31,8 +31,8 @@ final class TransactionViewModel {
     private(set) var isDoneButtonEnabled: Driver<Bool>!
     private(set) var tableItems: Observable<[TransactionCellModel]>!
     
-    init(for transaction: Transaction, sceneCoordinator: SceneCoordinatorProtocol) {
-        managedObjectContextService = ManagedObjectContextService.shared
+    init(for transaction: Transaction, sceneCoordinator: SceneCoordinatorProtocol, managedObjectContextService: ManagedObjectContextServiceProtocol) {
+        self.managedObjectContextService = managedObjectContextService
         
         self.sceneCoordinator = sceneCoordinator
         

@@ -10,17 +10,16 @@ import RxSwift
 
 protocol AccountServiceProtocol {
     
-    var accounts: Observable<[Account]> { get }
+    var accountsObserver: Observable<[Account]>! { get }
+    var accounts: [Account] { get }
     
-    var selectedAccountObserver: Observable<Account?> { get }
+    var selectedAccountObserver: Observable<Account?>! { get }
     var selectedAccount: Account? { get }
     
     @discardableResult
-    func changeAccount(to account: Account) -> Completable
+    func createAccount() -> Account
     
-    @discardableResult
-    func createAccount() -> Single<Account>
-    
-    @discardableResult
-    func delete(account: Account) -> Completable
+    func changeAccount(to account: Account)
+
+    func delete(account: Account) throws
 }

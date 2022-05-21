@@ -11,16 +11,13 @@ import CoreData
 import RxSwift
 
 protocol ManagedObjectContextServiceProtocol {
-    var context: NSManagedObjectContext { get }
+    var managedObjectContext: NSManagedObjectContext { get }
     
     func saveContext() throws
     
     func rollbackContext()
+    
+    func delete(_ object: NSManagedObject) 
+    
+    func fetch<T>(with fetchRequest: NSFetchRequest<T>) throws -> [T] where T: NSFetchRequestResult
 }
-
-extension ManagedObjectContextServiceProtocol {
-    var context: NSManagedObjectContext {
-        return (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
-    }
-}
-

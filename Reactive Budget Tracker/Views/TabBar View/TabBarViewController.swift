@@ -54,16 +54,18 @@ class TabBarViewController: UITabBarController, BindableProtocol {
     private func configureViewController(_ viewController: UIViewController) {
         if let navigationViewController = viewController as? UINavigationController,
            let viewController = navigationViewController.viewControllers.first as? MainViewController {
-            let mainViewModel = MainViewModel(sceneCoordinator: self.viewModel.sceneCoordinator)
+            let mainViewModel = MainViewModel(sceneCoordinator: self.viewModel.sceneCoordinator,
+                                              managedObjectContextService: viewModel.managedObjectContextService)
             viewController.bindViewModel(to: mainViewModel)
             
-            self.viewModel.sceneCoordinator.currentViewController = viewController
+            viewModel.sceneCoordinator.currentViewController = viewController
         } else if let navigationViewController = viewController as? UINavigationController,
                   let viewController = navigationViewController.viewControllers.first as? AccountsListViewController {
-            let accountsListViewModel = AccountsListViewModel(sceneCoordinator: self.viewModel.sceneCoordinator)
+            let accountsListViewModel = AccountsListViewModel(sceneCoordinator: viewModel.sceneCoordinator,
+                                                              managedObjectContextService: viewModel.managedObjectContextService)
             viewController.bindViewModel(to: accountsListViewModel)
             
-            self.viewModel.sceneCoordinator.currentViewController = viewController
+            viewModel.sceneCoordinator.currentViewController = viewController
         }
     }
     

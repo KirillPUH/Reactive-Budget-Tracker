@@ -7,9 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		08D76F9D610646E084518726 /* libPods-Reactive Budget Tracker-Reactive Budget TrackerUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEF85C3B6ECB0275E7BE0615 /* libPods-Reactive Budget Tracker-Reactive Budget TrackerUITests.a */; };
-		1B044DD909296E03C7201418 /* libPods-Reactive Budget Tracker-Reactive Budget TrackerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FAED335E31E0EDCD860186E /* libPods-Reactive Budget Tracker-Reactive Budget TrackerTests.a */; };
-		5C8D6D0234C3480A583CC17C /* libPods-Reactive Budget Tracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C7361993B2F2D07623CDCDA7 /* libPods-Reactive Budget Tracker.a */; };
+		27D6A8CC782C0CA93A474F1A /* Pods_Reactive_Budget_Tracker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 992FC090685BAB42B376A37A /* Pods_Reactive_Budget_Tracker.framework */; };
+		7C9C14AA6722429A7FFF1029 /* Pods_Reactive_Budget_Tracker_Reactive_Budget_TrackerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AE69A258D083F56387A88FF /* Pods_Reactive_Budget_Tracker_Reactive_Budget_TrackerTests.framework */; };
 		D60C549128310B36009138C1 /* CurrencyAccountTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C549028310B36009138C1 /* CurrencyAccountTableViewCell.swift */; };
 		D60C549328310D61009138C1 /* AccountTableViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C549228310D61009138C1 /* AccountTableViewCellType.swift */; };
 		D60C549528310DAC009138C1 /* AccountViewModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60C549428310DAC009138C1 /* AccountViewModelError.swift */; };
@@ -22,6 +21,8 @@
 		D641DE1E280B0EEA00E2FCD8 /* ManagedObjectContextService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D641DE1D280B0EEA00E2FCD8 /* ManagedObjectContextService.swift */; };
 		D66125B0282F9BDF0022C8F2 /* SceneError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66125AF282F9BDF0022C8F2 /* SceneError.swift */; };
 		D66125B2282F9C1E0022C8F2 /* SceneCoordinator Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = D66125B1282F9C1E0022C8F2 /* SceneCoordinator Error.swift */; };
+		D674D9552838F14E00DBF466 /* AccountsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D674D9532838F14E00DBF466 /* AccountsServiceTests.swift */; };
+		D674D9562838F14E00DBF466 /* TransactionsServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D674D9542838F14E00DBF466 /* TransactionsServiceTests.swift */; };
 		D67C4925282FCEEC000B0514 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C4924282FCEEC000B0514 /* Currency.swift */; };
 		D67C49272830115C000B0514 /* CurrencyTransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67C49262830115C000B0514 /* CurrencyTransactionTableViewCell.swift */; };
 		D67F005928074EC900E7A7E7 /* BindableProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D67F005828074EC900E7A7E7 /* BindableProtocol.swift */; };
@@ -44,9 +45,6 @@
 		D6D0B96C27DFC3800052F2F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D0B96A27DFC3800052F2F1 /* Main.storyboard */; };
 		D6D0B97127DFC3810052F2F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D6D0B97027DFC3810052F2F1 /* Assets.xcassets */; };
 		D6D0B97427DFC3810052F2F1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6D0B97227DFC3810052F2F1 /* LaunchScreen.storyboard */; };
-		D6D0B97F27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B97E27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift */; };
-		D6D0B98927DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B98827DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift */; };
-		D6D0B98B27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6D0B98A27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift */; };
 		D6E81FDD283271D300232393 /* AccountServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E81FDC283271D300232393 /* AccountServiceError.swift */; };
 		D6E81FDF283271EB00232393 /* MainViewModelError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6E81FDE283271EB00232393 /* MainViewModelError.swift */; };
 		D6EC2510280D4BBA00C5BBFE /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6EC250F280D4BBA00C5BBFE /* TabBarViewController.swift */; };
@@ -81,18 +79,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		00D9E0B7FA01CD80BD2FE110 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.release.xcconfig"; path = "Target Support Files/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.release.xcconfig"; sourceTree = "<group>"; };
-		18A927104C4713017F85EB8A /* Pods-Reactive Budget Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reactive Budget Tracker.release.xcconfig"; path = "Target Support Files/Pods-Reactive Budget Tracker/Pods-Reactive Budget Tracker.release.xcconfig"; sourceTree = "<group>"; };
-		320A7D575F9D5AC7B9730F02 /* Pods-Reactive Budget Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reactive Budget Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Reactive Budget Tracker/Pods-Reactive Budget Tracker.debug.xcconfig"; sourceTree = "<group>"; };
-		33818A1388D1E9EF6F650AD7 /* Pods-iOS App-iOS AppTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS App-iOS AppTests.release.xcconfig"; path = "Target Support Files/Pods-iOS App-iOS AppTests/Pods-iOS App-iOS AppTests.release.xcconfig"; sourceTree = "<group>"; };
-		3D10F8916E820724D91B7101 /* Pods-iOS App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS App.release.xcconfig"; path = "Target Support Files/Pods-iOS App/Pods-iOS App.release.xcconfig"; sourceTree = "<group>"; };
-		454C453EF7AE2DBF9CCE38F7 /* Pods-iOS App-iOS AppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS App-iOS AppUITests.debug.xcconfig"; path = "Target Support Files/Pods-iOS App-iOS AppUITests/Pods-iOS App-iOS AppUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		46F9B05AF6B46EA530C5D8D6 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		7B03405FB5F5C050487A2574 /* Pods-iOS App-iOS AppUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS App-iOS AppUITests.release.xcconfig"; path = "Target Support Files/Pods-iOS App-iOS AppUITests/Pods-iOS App-iOS AppUITests.release.xcconfig"; sourceTree = "<group>"; };
-		8BE00B64556EC29440E59CE2 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests.debug.xcconfig"; path = "Target Support Files/Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests/Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		8FAED335E31E0EDCD860186E /* libPods-Reactive Budget Tracker-Reactive Budget TrackerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Reactive Budget Tracker-Reactive Budget TrackerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		AD5A61A53A98D34C3912BF30 /* Pods-iOS App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS App.debug.xcconfig"; path = "Target Support Files/Pods-iOS App/Pods-iOS App.debug.xcconfig"; sourceTree = "<group>"; };
-		C7361993B2F2D07623CDCDA7 /* libPods-Reactive Budget Tracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Reactive Budget Tracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		023E2FB29CBF4920D23B5F54 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		0A1F211BF29F5959EE32A5DC /* Pods-Reactive Budget Tracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reactive Budget Tracker.release.xcconfig"; path = "Target Support Files/Pods-Reactive Budget Tracker/Pods-Reactive Budget Tracker.release.xcconfig"; sourceTree = "<group>"; };
+		383D0A740467710C8A59FEEA /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.release.xcconfig"; path = "Target Support Files/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.release.xcconfig"; sourceTree = "<group>"; };
+		8AE69A258D083F56387A88FF /* Pods_Reactive_Budget_Tracker_Reactive_Budget_TrackerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reactive_Budget_Tracker_Reactive_Budget_TrackerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		992FC090685BAB42B376A37A /* Pods_Reactive_Budget_Tracker.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Reactive_Budget_Tracker.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D60C549028310B36009138C1 /* CurrencyAccountTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyAccountTableViewCell.swift; sourceTree = "<group>"; };
 		D60C549228310D61009138C1 /* AccountTableViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewCellType.swift; sourceTree = "<group>"; };
 		D60C549428310DAC009138C1 /* AccountViewModelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModelError.swift; sourceTree = "<group>"; };
@@ -105,6 +96,8 @@
 		D641DE1D280B0EEA00E2FCD8 /* ManagedObjectContextService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagedObjectContextService.swift; sourceTree = "<group>"; };
 		D66125AF282F9BDF0022C8F2 /* SceneError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneError.swift; sourceTree = "<group>"; };
 		D66125B1282F9C1E0022C8F2 /* SceneCoordinator Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SceneCoordinator Error.swift"; sourceTree = "<group>"; };
+		D674D9532838F14E00DBF466 /* AccountsServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountsServiceTests.swift; sourceTree = "<group>"; };
+		D674D9542838F14E00DBF466 /* TransactionsServiceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionsServiceTests.swift; sourceTree = "<group>"; };
 		D67C4924282FCEEC000B0514 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		D67C49262830115C000B0514 /* CurrencyTransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyTransactionTableViewCell.swift; sourceTree = "<group>"; };
 		D67F005828074EC900E7A7E7 /* BindableProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableProtocol.swift; sourceTree = "<group>"; };
@@ -130,10 +123,7 @@
 		D6D0B97327DFC3810052F2F1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6D0B97527DFC3810052F2F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D6D0B97A27DFC3820052F2F1 /* Reactive Budget TrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reactive Budget TrackerTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6D0B97E27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive_Budget_TrackerTests.swift; sourceTree = "<group>"; };
 		D6D0B98427DFC3820052F2F1 /* Reactive Budget TrackerUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Reactive Budget TrackerUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		D6D0B98827DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive_Budget_TrackerUITests.swift; sourceTree = "<group>"; };
-		D6D0B98A27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reactive_Budget_TrackerUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		D6E81FDC283271D300232393 /* AccountServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountServiceError.swift; sourceTree = "<group>"; };
 		D6E81FDE283271EB00232393 /* MainViewModelError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelError.swift; sourceTree = "<group>"; };
 		D6EC250F280D4BBA00C5BBFE /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
@@ -148,9 +138,7 @@
 		D6FCB5AD2806D46E00029083 /* TransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionService.swift; sourceTree = "<group>"; };
 		D6FCB5B12806D7C300029083 /* AccountServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountServiceProtocol.swift; sourceTree = "<group>"; };
 		D6FCB5B32806D7CF00029083 /* AccountService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountService.swift; sourceTree = "<group>"; };
-		D8060EC1F90B1C0DB479E0CE /* Pods-iOS App-iOS AppTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iOS App-iOS AppTests.debug.xcconfig"; path = "Target Support Files/Pods-iOS App-iOS AppTests/Pods-iOS App-iOS AppTests.debug.xcconfig"; sourceTree = "<group>"; };
-		FE7FEE04829A4BA44E0CD762 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests.release.xcconfig"; path = "Target Support Files/Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests/Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests.release.xcconfig"; sourceTree = "<group>"; };
-		FEF85C3B6ECB0275E7BE0615 /* libPods-Reactive Budget Tracker-Reactive Budget TrackerUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Reactive Budget Tracker-Reactive Budget TrackerUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECA31196695AA932B62E7616 /* Pods-Reactive Budget Tracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Reactive Budget Tracker.debug.xcconfig"; path = "Target Support Files/Pods-Reactive Budget Tracker/Pods-Reactive Budget Tracker.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -158,7 +146,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5C8D6D0234C3480A583CC17C /* libPods-Reactive Budget Tracker.a in Frameworks */,
+				27D6A8CC782C0CA93A474F1A /* Pods_Reactive_Budget_Tracker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,7 +154,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1B044DD909296E03C7201418 /* libPods-Reactive Budget Tracker-Reactive Budget TrackerTests.a in Frameworks */,
+				7C9C14AA6722429A7FFF1029 /* Pods_Reactive_Budget_Tracker_Reactive_Budget_TrackerTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -174,28 +162,19 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				08D76F9D610646E084518726 /* libPods-Reactive Budget Tracker-Reactive Budget TrackerUITests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3FFEBE0282CD7C9CF7A1F038 /* Pods */ = {
+		5A2CEC44F40B6DFCEC6F10FB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				AD5A61A53A98D34C3912BF30 /* Pods-iOS App.debug.xcconfig */,
-				3D10F8916E820724D91B7101 /* Pods-iOS App.release.xcconfig */,
-				D8060EC1F90B1C0DB479E0CE /* Pods-iOS App-iOS AppTests.debug.xcconfig */,
-				33818A1388D1E9EF6F650AD7 /* Pods-iOS App-iOS AppTests.release.xcconfig */,
-				454C453EF7AE2DBF9CCE38F7 /* Pods-iOS App-iOS AppUITests.debug.xcconfig */,
-				7B03405FB5F5C050487A2574 /* Pods-iOS App-iOS AppUITests.release.xcconfig */,
-				320A7D575F9D5AC7B9730F02 /* Pods-Reactive Budget Tracker.debug.xcconfig */,
-				18A927104C4713017F85EB8A /* Pods-Reactive Budget Tracker.release.xcconfig */,
-				46F9B05AF6B46EA530C5D8D6 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.debug.xcconfig */,
-				00D9E0B7FA01CD80BD2FE110 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.release.xcconfig */,
-				8BE00B64556EC29440E59CE2 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests.debug.xcconfig */,
-				FE7FEE04829A4BA44E0CD762 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests.release.xcconfig */,
+				ECA31196695AA932B62E7616 /* Pods-Reactive Budget Tracker.debug.xcconfig */,
+				0A1F211BF29F5959EE32A5DC /* Pods-Reactive Budget Tracker.release.xcconfig */,
+				023E2FB29CBF4920D23B5F54 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.debug.xcconfig */,
+				383D0A740467710C8A59FEEA /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -374,10 +353,9 @@
 			children = (
 				D6D0B96327DFC3800052F2F1 /* Reactive Budget Tracker */,
 				D6D0B97D27DFC3820052F2F1 /* Reactive Budget TrackerTests */,
-				D6D0B98727DFC3820052F2F1 /* Reactive Budget TrackerUITests */,
 				D6D0B96227DFC3800052F2F1 /* Products */,
-				3FFEBE0282CD7C9CF7A1F038 /* Pods */,
-				DD69A0C3835855A8A9DA8F9C /* Frameworks */,
+				5A2CEC44F40B6DFCEC6F10FB /* Pods */,
+				E261B5DBF21FB44CF0B5FE2A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -414,18 +392,10 @@
 		D6D0B97D27DFC3820052F2F1 /* Reactive Budget TrackerTests */ = {
 			isa = PBXGroup;
 			children = (
-				D6D0B97E27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift */,
+				D674D9532838F14E00DBF466 /* AccountsServiceTests.swift */,
+				D674D9542838F14E00DBF466 /* TransactionsServiceTests.swift */,
 			);
 			path = "Reactive Budget TrackerTests";
-			sourceTree = "<group>";
-		};
-		D6D0B98727DFC3820052F2F1 /* Reactive Budget TrackerUITests */ = {
-			isa = PBXGroup;
-			children = (
-				D6D0B98827DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift */,
-				D6D0B98A27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift */,
-			);
-			path = "Reactive Budget TrackerUITests";
 			sourceTree = "<group>";
 		};
 		D6F8B07928094DF700F34148 /* RxExtensions */ = {
@@ -455,12 +425,11 @@
 			path = Scene;
 			sourceTree = "<group>";
 		};
-		DD69A0C3835855A8A9DA8F9C /* Frameworks */ = {
+		E261B5DBF21FB44CF0B5FE2A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C7361993B2F2D07623CDCDA7 /* libPods-Reactive Budget Tracker.a */,
-				8FAED335E31E0EDCD860186E /* libPods-Reactive Budget Tracker-Reactive Budget TrackerTests.a */,
-				FEF85C3B6ECB0275E7BE0615 /* libPods-Reactive Budget Tracker-Reactive Budget TrackerUITests.a */,
+				992FC090685BAB42B376A37A /* Pods_Reactive_Budget_Tracker.framework */,
+				8AE69A258D083F56387A88FF /* Pods_Reactive_Budget_Tracker_Reactive_Budget_TrackerTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -472,10 +441,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D6D0B98E27DFC3820052F2F1 /* Build configuration list for PBXNativeTarget "Reactive Budget Tracker" */;
 			buildPhases = (
-				2E3078CF53FA81A293EC2CF8 /* [CP] Check Pods Manifest.lock */,
+				BA42D499A9C5D58E537130D4 /* [CP] Check Pods Manifest.lock */,
 				D6D0B95D27DFC3800052F2F1 /* Sources */,
 				D6D0B95E27DFC3800052F2F1 /* Frameworks */,
 				D6D0B95F27DFC3800052F2F1 /* Resources */,
+				398BCFBD973C79A99D85A9BF /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -490,10 +460,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D6D0B99127DFC3820052F2F1 /* Build configuration list for PBXNativeTarget "Reactive Budget TrackerTests" */;
 			buildPhases = (
-				3AAEB709065F56EA7B3BD5BF /* [CP] Check Pods Manifest.lock */,
+				E30824FCDADFED46A70233F4 /* [CP] Check Pods Manifest.lock */,
 				D6D0B97627DFC3820052F2F1 /* Sources */,
 				D6D0B97727DFC3820052F2F1 /* Frameworks */,
 				D6D0B97827DFC3820052F2F1 /* Resources */,
+				03A923AEEB5BF57FE615794E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -509,7 +480,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D6D0B99427DFC3820052F2F1 /* Build configuration list for PBXNativeTarget "Reactive Budget TrackerUITests" */;
 			buildPhases = (
-				5DC6202160402EBFCBFACAA8 /* [CP] Check Pods Manifest.lock */,
 				D6D0B98027DFC3820052F2F1 /* Sources */,
 				D6D0B98127DFC3820052F2F1 /* Frameworks */,
 				D6D0B98227DFC3820052F2F1 /* Resources */,
@@ -539,6 +509,7 @@
 					};
 					D6D0B97927DFC3820052F2F1 = {
 						CreatedOnToolsVersion = 13.2.1;
+						LastSwiftMigration = 1340;
 						TestTargetID = D6D0B96027DFC3800052F2F1;
 					};
 					D6D0B98327DFC3820052F2F1 = {
@@ -595,7 +566,41 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2E3078CF53FA81A293EC2CF8 /* [CP] Check Pods Manifest.lock */ = {
+		03A923AEEB5BF57FE615794E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		398BCFBD973C79A99D85A9BF /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Reactive Budget Tracker/Pods-Reactive Budget Tracker-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Reactive Budget Tracker/Pods-Reactive Budget Tracker-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Reactive Budget Tracker/Pods-Reactive Budget Tracker-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA42D499A9C5D58E537130D4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -617,7 +622,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3AAEB709065F56EA7B3BD5BF /* [CP] Check Pods Manifest.lock */ = {
+		E30824FCDADFED46A70233F4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -633,28 +638,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Reactive Budget Tracker-Reactive Budget TrackerTests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5DC6202160402EBFCBFACAA8 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -720,7 +703,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6D0B97F27DFC3820052F2F1 /* Reactive_Budget_TrackerTests.swift in Sources */,
+				D674D9562838F14E00DBF466 /* TransactionsServiceTests.swift in Sources */,
+				D674D9552838F14E00DBF466 /* AccountsServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -728,8 +712,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D6D0B98B27DFC3820052F2F1 /* Reactive_Budget_TrackerUITestsLaunchTests.swift in Sources */,
-				D6D0B98927DFC3820052F2F1 /* Reactive_Budget_TrackerUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -771,7 +753,6 @@
 		D6D0B98C27DFC3820052F2F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -833,7 +814,6 @@
 		D6D0B98D27DFC3820052F2F1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -888,7 +868,7 @@
 		};
 		D6D0B98F27DFC3820052F2F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 320A7D575F9D5AC7B9730F02 /* Pods-Reactive Budget Tracker.debug.xcconfig */;
+			baseConfigurationReference = ECA31196695AA932B62E7616 /* Pods-Reactive Budget Tracker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -918,7 +898,7 @@
 		};
 		D6D0B99027DFC3820052F2F1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 18A927104C4713017F85EB8A /* Pods-Reactive Budget Tracker.release.xcconfig */;
+			baseConfigurationReference = 0A1F211BF29F5959EE32A5DC /* Pods-Reactive Budget Tracker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -948,51 +928,60 @@
 		};
 		D6D0B99227DFC3820052F2F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46F9B05AF6B46EA530C5D8D6 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.debug.xcconfig */;
+			baseConfigurationReference = 023E2FB29CBF4920D23B5F54 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6797TRSMCN;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kirillpukhov.iOS-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS App.app/iOS App";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reactive Budget Tracker.app/Reactive Budget Tracker";
 			};
 			name = Debug;
 		};
 		D6D0B99327DFC3820052F2F1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 00D9E0B7FA01CD80BD2FE110 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.release.xcconfig */;
+			baseConfigurationReference = 383D0A740467710C8A59FEEA /* Pods-Reactive Budget Tracker-Reactive Budget TrackerTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6797TRSMCN;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.kirillpukhov.iOS-AppTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iOS App.app/iOS App";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Reactive Budget Tracker.app/Reactive Budget Tracker";
 			};
 			name = Release;
 		};
 		D6D0B99527DFC3820052F2F1 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8BE00B64556EC29440E59CE2 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6797TRSMCN;
@@ -1009,9 +998,7 @@
 		};
 		D6D0B99627DFC3820052F2F1 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FE7FEE04829A4BA44E0CD762 /* Pods-Reactive Budget Tracker-Reactive Budget TrackerUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6797TRSMCN;

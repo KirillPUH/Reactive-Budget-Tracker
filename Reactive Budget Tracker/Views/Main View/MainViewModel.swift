@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 import RxSwift
 import RxCocoa
 import RxDataSources
@@ -15,9 +16,9 @@ typealias TransactionsListSection = AnimatableSectionModel<String, Transaction>
 final class MainViewModel {
     
     private let sceneCoordinator: SceneCoordinatorProtocol
+    private let managedObjectContrextService: ManagedObjectContextServiceProtocol
     private let transactionService: TransactionServiceProtocol
     private let accountService: AccountServiceProtocol
-    private let managedObjectContrextService: ManagedObjectContextServiceProtocol
     
     // Rx
     private let disposeBag: DisposeBag
@@ -31,10 +32,11 @@ final class MainViewModel {
     private(set) var isPlusButtonEnabled: Driver<Bool>!
     private(set) var tableItems: Observable<[TransactionsListSection]>!
     
-    init(sceneCoordinator: SceneCoordinatorProtocol) {
-        transactionService = TransactionService()
-        accountService = AccountService()
-        managedObjectContrextService = ManagedObjectContextService.shared
+    init(sceneCoordinator: SceneCoordinatorProtocol,
+         managedObjectContextService: ManagedObjectContextServiceProtocol) {
+        self.managedObjectContrextService = managedObjectContextService
+        accountService = AccountService(managedObjectContextService: self.managedObjectContrextService)
+        transactionService = TransactionService(managedObjectContextService: self.managedObjectContrextService)
         
         self.sceneCoordinator = sceneCoordinator
         
@@ -57,13 +59,12 @@ extension MainViewModel {
                 
                 guard let selectedAccount = self?.accountService.selectedAccount else { return }
                 
-                self?.transactionService.createTransaction(in: selectedAccount)
-                    .subscribe(onSuccess: { transaction in
-                        let viewModel = TransactionViewModel(for: transaction,
-                                                                        sceneCoordinator: strongSelf.sceneCoordinator)
-                        self?.sceneCoordinator.transition(to: .transaction(viewModel), with: .modal)
-                    })
-                    .disposed(by: strongSelf.disposeBag)
+                if let transaction = self?.transactionService.createTransaction(in: selectedAccount) {
+                    let viewModel = TransactionViewModel(for: transaction,
+                                                         sceneCoordinator: strongSelf.sceneCoordinator,
+                                                         managedObjectContextService: strongSelf.managedObjectContrextService)
+                    self?.sceneCoordinator.transition(to: .transaction(viewModel), with: .modal)
+                }
             })
             .disposed(by: disposeBag)
         
@@ -87,14 +88,15 @@ extension MainViewModel {
                 guard let strongSelf = self else { fatalError() }
             
                 let viewModel = TransactionViewModel(for: transaction,
-                                                     sceneCoordinator: strongSelf.sceneCoordinator)
+                                                     sceneCoordinator: strongSelf.sceneCoordinator,
+                                                     managedObjectContextService: strongSelf.managedObjectContrextService)
                 self?.sceneCoordinator.transition(to: .transaction(viewModel), with: .modal)
             })
             .disposed(by: disposeBag)
     }
     
     private func configureProperties() {
-        isPlusButtonEnabled = accountService.accounts
+        isPlusButtonEnabled = accountService.accountsObserver
             .map { $0.count != 0 }
             .asDriver(onErrorJustReturn: false)
     }
@@ -111,10 +113,8 @@ extension MainViewModel {
                     }
                     
                     self?.transactionService.transactions(for: account)
-                        .map { $0.sorted { $0.date! > $1.date! } }
                         .subscribe(onNext: { transactions in
                             let sortedTransactions = transactions.sortedByDate()
-                            
                             let transactionListSections = sortedTransactions.map { sectionTitle, transactions in
                                 TransactionsListSection(model: sectionTitle, items: transactions)
                             }
