@@ -17,8 +17,8 @@ final class MainViewModel {
     
     private let sceneCoordinator: SceneCoordinatorProtocol
     private let managedObjectContrextService: ManagedObjectContextServiceProtocol
-    private let transactionService: TransactionServiceProtocol
     private let accountService: AccountServiceProtocol
+    private let transactionService: TransactionServiceProtocol
     
     // Rx
     private let disposeBag: DisposeBag
@@ -34,17 +34,20 @@ final class MainViewModel {
     
     init(sceneCoordinator: SceneCoordinatorProtocol,
          managedObjectContextService: ManagedObjectContextServiceProtocol) {
+        self.sceneCoordinator = sceneCoordinator
         self.managedObjectContrextService = managedObjectContextService
         accountService = AccountService(managedObjectContextService: self.managedObjectContrextService)
         transactionService = TransactionService(managedObjectContextService: self.managedObjectContrextService)
-        
-        self.sceneCoordinator = sceneCoordinator
         
         disposeBag = DisposeBag()
         
         configureActions()
         configureProperties()
-        configureTableItems()
+        accountService.selectedAccountObserver
+            .subscribe(onNext: { [weak self] account in
+                self?.configureTableItems(for: account)
+            })
+            .disposed(by: disposeBag)
     }
     
 }
@@ -101,37 +104,33 @@ extension MainViewModel {
             .asDriver(onErrorJustReturn: false)
     }
     
-    private func configureTableItems() {
+    private func configureTableItems(for account: Account?) {
         tableItems = Observable<[TransactionsListSection]>.create { [weak self] observable in
             guard let strongSelf = self else { fatalError() }
             
-            self?.accountService.selectedAccountObserver
-                .subscribe(onNext: { [weak self] account in
-                    guard let account = account else {
-                        observable.onNext([])
-                        return
+            guard let account = account else {
+                observable.onNext([])
+                return Disposables.create()
+            }
+            
+            self?.transactionService.transactions(for: account)
+                .subscribe(onNext: { transactions in
+                    let sortedTransactions = transactions.sortedByDate()
+                    let transactionListSections = sortedTransactions.map { sectionTitle, transactions in
+                        TransactionsListSection(model: sectionTitle, items: transactions)
                     }
                     
-                    self?.transactionService.transactions(for: account)
-                        .subscribe(onNext: { transactions in
-                            let sortedTransactions = transactions.sortedByDate()
-                            let transactionListSections = sortedTransactions.map { sectionTitle, transactions in
-                                TransactionsListSection(model: sectionTitle, items: transactions)
-                            }
-                            
-                            observable.onNext(transactionListSections)
-                        })
-                        .disposed(by: strongSelf.disposeBag)
+                    observable.onNext(transactionListSections)
                 })
                 .disposed(by: strongSelf.disposeBag)
             
-            return Disposables.create { }
+            return Disposables.create()
         }
     }
         
 }
 
-fileprivate extension Collection where Element == Transaction {
+extension Collection where Element == Transaction {
     
     func sortedByDate() -> [(String, [Transaction])] {
         let dateFormatter = DateFormatter()

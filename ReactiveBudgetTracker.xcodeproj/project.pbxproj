@@ -34,6 +34,7 @@
 		D68789ED28069F1600EB95A4 /* AccountsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68789EC28069F1600EB95A4 /* AccountsListViewModel.swift */; };
 		D68789F028069FCA00EB95A4 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68789EF28069FCA00EB95A4 /* AccountViewController.swift */; };
 		D68789F228069FD200EB95A4 /* AccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68789F128069FD200EB95A4 /* AccountViewModel.swift */; };
+		D68FA751283A500A00D800B7 /* MainViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D68FA750283A500A00D800B7 /* MainViewModelTests.swift */; };
 		D6A30D3527FB2799004FF728 /* TextFieldTransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30D3427FB2799004FF728 /* TextFieldTransactionTableViewCell.swift */; };
 		D6A30D3727FB27A3004FF728 /* DateTransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6A30D3627FB27A3004FF728 /* DateTransactionTableViewCell.swift */; };
 		D6AEC17828301E3000E21694 /* TransactionTableViewCellType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6AEC17728301E3000E21694 /* TransactionTableViewCellType.swift */; };
@@ -109,6 +110,7 @@
 		D68789EC28069F1600EB95A4 /* AccountsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountsListViewModel.swift; sourceTree = "<group>"; };
 		D68789EF28069FCA00EB95A4 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		D68789F128069FD200EB95A4 /* AccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewModel.swift; sourceTree = "<group>"; };
+		D68FA750283A500A00D800B7 /* MainViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModelTests.swift; sourceTree = "<group>"; };
 		D6A30D3427FB2799004FF728 /* TextFieldTransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTransactionTableViewCell.swift; sourceTree = "<group>"; };
 		D6A30D3627FB27A3004FF728 /* DateTransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTransactionTableViewCell.swift; sourceTree = "<group>"; };
 		D6AEC17728301E3000E21694 /* TransactionTableViewCellType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCellType.swift; sourceTree = "<group>"; };
@@ -394,6 +396,7 @@
 			children = (
 				D674D9532838F14E00DBF466 /* AccountsServiceTests.swift */,
 				D674D9542838F14E00DBF466 /* TransactionsServiceTests.swift */,
+				D68FA750283A500A00D800B7 /* MainViewModelTests.swift */,
 			);
 			path = "Reactive Budget TrackerTests";
 			sourceTree = "<group>";
@@ -409,9 +412,9 @@
 		D6FCB5AF2806D48600029083 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				D66125A5282F9A3F0022C8F2 /* ManagedObject Service */,
 				D66125A7282F9A770022C8F2 /* Account Service */,
 				D66125A6282F9A5E0022C8F2 /* Transaction Service */,
-				D66125A5282F9A3F0022C8F2 /* ManagedObject Service */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -518,7 +521,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D6D0B95C27DFC3800052F2F1 /* Build configuration list for PBXProject "Reactive Budget Tracker" */;
+			buildConfigurationList = D6D0B95C27DFC3800052F2F1 /* Build configuration list for PBXProject "ReactiveBudgetTracker" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -703,6 +706,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D68FA751283A500A00D800B7 /* MainViewModelTests.swift in Sources */,
 				D674D9562838F14E00DBF466 /* TransactionsServiceTests.swift in Sources */,
 				D674D9552838F14E00DBF466 /* AccountsServiceTests.swift in Sources */,
 			);
@@ -1016,7 +1020,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D6D0B95C27DFC3800052F2F1 /* Build configuration list for PBXProject "Reactive Budget Tracker" */ = {
+		D6D0B95C27DFC3800052F2F1 /* Build configuration list for PBXProject "ReactiveBudgetTracker" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D6D0B98C27DFC3820052F2F1 /* Debug */,

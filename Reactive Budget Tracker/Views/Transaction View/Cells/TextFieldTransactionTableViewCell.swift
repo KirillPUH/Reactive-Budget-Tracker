@@ -34,7 +34,7 @@ class TextFieldTransactionTableViewCell: UITableViewCell {
             textField.rx.text.orEmpty
                 .skip(until: textField.rx.controlEvent(.editingDidBegin))
                 .take(until: textField.rx.controlEvent(.editingDidEnd))
-                .debounce(.milliseconds(350), scheduler: MainScheduler.instance)
+                .debounce(.milliseconds(200), scheduler: MainScheduler.instance)
                 .map { $0 == "" ? nil : $0 }
                 .bind(to: transaction.rx.title)
                 .disposed(by: disposeBag)
@@ -44,7 +44,7 @@ class TextFieldTransactionTableViewCell: UITableViewCell {
             textField.rx.text.orEmpty
                 .skip(until: textField.rx.controlEvent(.editingDidBegin))
                 .take(until: textField.rx.controlEvent(.editingDidEnd))
-                .debounce(.milliseconds(350), scheduler: MainScheduler.instance)
+                .debounce(.milliseconds(200), scheduler: MainScheduler.instance)
                 .map { strNumber -> NSNumber? in
                     if strNumber == "" {
                         return nil

@@ -20,9 +20,9 @@ class CurrencyTransactionTableViewCell: UITableViewCell {
     func configure(title: String, transaction: Transaction) {
         disposeBag = DisposeBag()
         
-        currencyLabel.text = transaction.currency
-        
         titleLabel.text = title
+        
+        currencyLabel.text = transaction.currency ?? Currency.usd.rawValue
         
         transaction.rx.observe(\.currency)
             .bind(to: currencyLabel.rx.text)

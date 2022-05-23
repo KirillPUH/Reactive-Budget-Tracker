@@ -27,7 +27,7 @@ class ManagedObjectContextService: ManagedObjectContextServiceProtocol {
         managedObjectContext.rollback()
     }
     
-    public func fetch<T>(with fetchRequest: NSFetchRequest<T>) throws -> [T] where T: NSFetchRequestResult {
+    public func fetch<T>(_ fetchRequest: NSFetchRequest<T>) throws -> [T] where T: NSFetchRequestResult {
         return try managedObjectContext.fetch(fetchRequest)
     }
     

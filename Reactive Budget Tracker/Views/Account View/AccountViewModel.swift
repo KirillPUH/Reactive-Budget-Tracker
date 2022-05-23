@@ -39,6 +39,9 @@ class AccountViewModel {
         accountService = AccountService(managedObjectContextService: managedObjectContextService)
         
         self.account = account
+        if account.currency == nil {
+            account.currency = Currency.usd.rawValue
+        }
         
         disposeBag = DisposeBag()
         

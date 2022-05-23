@@ -37,6 +37,9 @@ final class TransactionViewModel {
         self.sceneCoordinator = sceneCoordinator
         
         self.transaction = transaction
+        if transaction.currency == nil {
+            transaction.currency = transaction.account?.currency
+        }
         
         disposeBag = DisposeBag()
         

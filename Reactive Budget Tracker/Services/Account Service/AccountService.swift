@@ -31,7 +31,7 @@ class AccountService: AccountServiceProtocol {
     public var accounts: [Account] {
         let fetchRequest = Account.fetchRequest()
         
-        return (try? managedObjectContextService.fetch(with: fetchRequest)) ?? []
+        return (try? managedObjectContextService.fetch(fetchRequest)) ?? []
     }
     
     private(set) var selectedAccountObserver: Observable<Account?>!
@@ -95,7 +95,7 @@ extension AccountService {
                     fetchRequest.sortDescriptors = [sortDesriptor]
                     
                     do {
-                        let accounts = try strongSelf.managedObjectContextService.fetch(with: fetchRequest)
+                        let accounts = try strongSelf.managedObjectContextService.fetch(fetchRequest)
                         observable.onNext(accounts)
                     } catch {
                         observable.onError(AccountServiceError.accountFetchError(error))

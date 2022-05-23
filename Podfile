@@ -6,6 +6,7 @@ target 'Reactive Budget Tracker' do
     pod 'RxSwift'
     pod 'RxCocoa'
     pod 'RxDataSources'
+    pod 'Swinject'
 
   target 'Reactive Budget TrackerTests' do
     use_frameworks!

@@ -27,7 +27,7 @@ class TextFieldAccountTableViewCell: UITableViewCell {
         textField.rx.text.orEmpty
             .skip(until: textField.rx.controlEvent(.editingDidBegin))
             .take(until: textField.rx.controlEvent(.editingDidEnd))
-            .debounce(.milliseconds(350), scheduler: MainScheduler.instance)
+            .debounce(.milliseconds(200), scheduler: MainScheduler.instance)
             .bind(to: account.rx.title)
             .disposed(by: disposeBag)
     }

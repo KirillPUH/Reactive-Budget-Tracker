@@ -19,5 +19,5 @@ protocol ManagedObjectContextServiceProtocol {
     
     func delete(_ object: NSManagedObject) 
     
-    func fetch<T>(with fetchRequest: NSFetchRequest<T>) throws -> [T] where T: NSFetchRequestResult
+    func fetch<T>(_ fetchRequest: NSFetchRequest<T>) throws -> [T] where T: NSFetchRequestResult
 }
